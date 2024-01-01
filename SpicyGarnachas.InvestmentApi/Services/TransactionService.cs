@@ -12,7 +12,7 @@ namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
             this.repository = repository;
             this.logger = logger;
         }
-        public async Task<(bool IsSuccess, Models.TransactionModel?, string MessageError)> GetTransactionsData()
+        public async Task<(bool IsSuccess, List<Models.TransactionModel>?, string MessageError)> GetTransactionsData()
         {
             try
             {

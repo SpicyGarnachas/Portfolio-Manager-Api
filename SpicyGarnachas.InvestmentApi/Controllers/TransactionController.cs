@@ -17,7 +17,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
 
         [HttpGet]
         [Route("[action]/")]
-        public async Task<ActionResult<Models.TransactionModel?>> GetTransactionsData()
+        public async Task<ActionResult<List<Models.TransactionModel>?>> GetTransactionsData()
         {
             var (IsSuccess, Result, MessageError) = await services.GetTransactionsData();
             return IsSuccess ? Ok(Result) : BadRequest(Result);

@@ -2,6 +2,6 @@
 {
     public interface ITransactionService
     {
-        Task<(bool IsSuccess, Models.TransactionModel?, string MessageError)> GetTransactionsData();
+        Task<(bool IsSuccess, List<Models.TransactionModel>?, string MessageError)> GetTransactionsData();
     }
 }

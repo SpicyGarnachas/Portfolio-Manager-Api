@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpicyGarnachas.InvestmentApi", "SpicyGarnachas.InvestmentApi.csproj", "{692B1F4B-DCE3-4085-8C85-67AE0863FE75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpicyGarnachas.InvestmentApi", "SpicyGarnachas.InvestmentApi.csproj", "{692B1F4B-DCE3-4085-8C85-67AE0863FE75}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D406CFB-EB2F-4100-9A26-F8B7403A2636}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

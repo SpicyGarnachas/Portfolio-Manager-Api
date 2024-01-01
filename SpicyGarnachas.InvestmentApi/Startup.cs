@@ -19,6 +19,7 @@ namespace SpicyGarnachas.InvestmentApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IConfiguration>(Configuration);
             if (!webHostEnvironment.IsDevelopment())
             {
                 services.AddScoped<IPortfolioService, PortfolioService>();

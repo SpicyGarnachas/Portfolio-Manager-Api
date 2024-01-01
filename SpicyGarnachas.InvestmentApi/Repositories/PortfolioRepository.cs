@@ -5,14 +5,17 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
     public class PortfolioRepository : IPortfolioRepository
     {
         private readonly ILogger<PortfolioRepository> logger;
+        private readonly IConfiguration _configuration;
 
-        public PortfolioRepository(ILogger<PortfolioRepository> logger)
+        public PortfolioRepository(ILogger<PortfolioRepository> logger, IConfiguration configuration)
         {
             this.logger = logger;
+            _configuration = configuration;
         }
 
         public async Task<(bool IsSuccess, Models.PortfolioModel?, string MessageError)> GetPortfolioData()
         {
+            string connectionString = _configuration["stringConnection"];
             try
             {
                 Models.PortfolioModel? portfolio = new Models.PortfolioModel()

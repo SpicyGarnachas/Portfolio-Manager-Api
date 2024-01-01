@@ -15,7 +15,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
         {
             try
             {
-                Models.InvestmentModel? portfolio = new Models.InvestmentModel()
+                Models.InvestmentModel? investment = new Models.InvestmentModel()
                 {
                     id = 1,
                     portfolioId = 1,
@@ -26,10 +26,9 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                     sector="Financials",
                     risk=1,
                     liquidity=1
-
                 };
                 await Task.Delay(0);
-                return (portfolio != null ? (true, portfolio, string.Empty) : (false, null, "No data"));
+                return (investment != null ? (true, investment, string.Empty) : (false, null, "No data"));
             }
             catch (Exception exceptionMessage)
             {

@@ -19,7 +19,7 @@ namespace SpicyGarnachas.InvestmentApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            if (webHostEnvironment.IsDevelopment())
+            if (!webHostEnvironment.IsDevelopment())
             {
                 services.AddScoped<IPortfolioService, PortfolioService>();
                 services.AddScoped<IPortfolioRepository, TestPortfolioRepository>();
@@ -27,6 +27,8 @@ namespace SpicyGarnachas.InvestmentApi
                 services.AddScoped<IInvestmentRepository, TestInvestmentRepository>();
                 services.AddScoped<IBusinessService, BusinessService>();
                 services.AddScoped<IBusinessRepository, TestBusinessRepository>();
+                services.AddScoped<ITransactionService, TransactionService>();
+                services.AddScoped<ITransactionRepository, TestTransactionRepository>();
             }
             else
             {
@@ -36,6 +38,8 @@ namespace SpicyGarnachas.InvestmentApi
                 services.AddScoped<IInvestmentRepository, InvestmentRepository>();
                 services.AddScoped<IBusinessService, BusinessService>();
                 services.AddScoped<IBusinessRepository, BusinessRepository>();
+                services.AddScoped<ITransactionService, TransactionService>();
+                services.AddScoped<ITransactionRepository, TransactionRepository>();
             }
             services.AddControllers();
             services.AddSwaggerGen(c =>

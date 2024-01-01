@@ -15,17 +15,16 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
         {
             try
             {
-                Models.BusinessModel? portfolio = new Models.BusinessModel()
+                Models.BusinessModel? business = new Models.BusinessModel()
                 {
                     id = 1,
                     portfolioId = 1,
                     name = "My fruit store",
                     description = "Retail fruit store",
-
-
+                    Sector = "Retail"
                 };
                 await Task.Delay(0);
-                return (portfolio != null ? (true, portfolio, string.Empty) : (false, null, "No data"));
+                return (business != null ? (true, business, string.Empty) : (false, null, "No data"));
             }
             catch (Exception exceptionMessage)
             {

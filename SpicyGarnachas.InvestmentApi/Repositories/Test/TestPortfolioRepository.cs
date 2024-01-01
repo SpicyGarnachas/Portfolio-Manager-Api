@@ -1,4 +1,6 @@
-﻿namespace SpicyGarnachas.InvestmentApi.Repositories
+﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
+
+namespace SpicyGarnachas.InvestmentApi.Repositories.Test
 {
     public class TestPortfolioRepository : IPortfolioRepository
     {
@@ -21,7 +23,7 @@
                     version = "1"
                 };
                 await Task.Delay(0);
-                return (portfolio != null ? (true, portfolio, string.Empty) : (false, null, "No se encontraron resultados"));
+                return portfolio != null ? (true, portfolio, string.Empty) : (false, null, "No se encontraron resultados");
             }
             catch (Exception exceptionMessage)
             {

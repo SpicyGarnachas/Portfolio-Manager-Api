@@ -1,4 +1,5 @@
-﻿using SpicyGarnachas.InvestmentApi.Repositories;
+﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
+using SpicyGarnachas.InvestmentApi.Services.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi.Services
 {

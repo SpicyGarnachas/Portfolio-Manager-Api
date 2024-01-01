@@ -1,4 +1,4 @@
-﻿namespace SpicyGarnachas.InvestmentApi.Services
+﻿namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
 {
     public interface IPortfolioService
     {

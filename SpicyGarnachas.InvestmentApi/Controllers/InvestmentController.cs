@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SpicyGarnachas.InvestmentApi.Services;
+using SpicyGarnachas.InvestmentApi.Services.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi.Controllers
 {

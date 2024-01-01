@@ -1,4 +1,4 @@
-﻿namespace SpicyGarnachas.InvestmentApi.Repositories
+﻿namespace SpicyGarnachas.InvestmentApi.Repositories.Interfaces
 {
     public interface IPortfolioRepository
     {

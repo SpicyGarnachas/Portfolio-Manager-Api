@@ -1,6 +1,6 @@
-﻿namespace SpicyGarnachas.InvestmentApi.Repositories
+﻿namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
 {
-    public interface IInvestmentRepository
+    public interface IInvestmentService
     {
         Task<(bool IsSuccess, Models.InvestmentModel?, string MessageError)> GetInvestmentData();
     }

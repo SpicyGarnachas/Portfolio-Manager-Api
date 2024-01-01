@@ -1,6 +1,9 @@
 ﻿using Microsoft.OpenApi.Models;
 using SpicyGarnachas.InvestmentApi.Services;
 using SpicyGarnachas.InvestmentApi.Repositories;
+using SpicyGarnachas.InvestmentApi.Repositories.Test;
+using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
+using SpicyGarnachas.InvestmentApi.Services.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi
 {

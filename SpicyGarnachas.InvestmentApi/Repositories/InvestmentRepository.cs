@@ -1,4 +1,6 @@
-﻿namespace SpicyGarnachas.InvestmentApi.Repositories
+﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
+
+namespace SpicyGarnachas.InvestmentApi.Repositories
 {
     public class InvestmentRepository : IInvestmentRepository
     {

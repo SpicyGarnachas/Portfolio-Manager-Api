@@ -21,7 +21,7 @@
                     version = "1"
                 };
                 await Task.Delay(0);
-                return (portfolio != null ? (true, portfolio, string.Empty) : (false, null, "No se encontraron resultados"));
+                return (portfolio != null ? (true, portfolio, string.Empty) : (false, null, "No data"));
             }
             catch (Exception exceptionMessage)
             {

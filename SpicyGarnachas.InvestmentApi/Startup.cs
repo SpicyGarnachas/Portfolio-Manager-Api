@@ -20,11 +20,15 @@ namespace SpicyGarnachas.InvestmentApi
             {
                 services.AddScoped<IPortfolioService, PortfolioService>();
                 services.AddScoped<IPortfolioRepository, TestPortfolioRepository>();
+                services.AddScoped<IInvestmentService, InvestmentService>();
+                services.AddScoped<IInvestmentRepository, InvestmentRepository>();
             }
             else
             {
                 services.AddScoped<IPortfolioService, PortfolioService>();
                 services.AddScoped<IPortfolioRepository, PortfolioRepository>();
+                services.AddScoped<IInvestmentService, InvestmentService>();
+                services.AddScoped<IInvestmentRepository, InvestmentRepository>();
             }
             services.AddControllers();
             services.AddSwaggerGen(c =>

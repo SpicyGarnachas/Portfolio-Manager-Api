@@ -24,7 +24,7 @@ namespace SpicyGarnachas.InvestmentApi
                 services.AddScoped<IPortfolioService, PortfolioService>();
                 services.AddScoped<IPortfolioRepository, TestPortfolioRepository>();
                 services.AddScoped<IInvestmentService, InvestmentService>();
-                services.AddScoped<IInvestmentRepository, InvestmentRepository>();
+                services.AddScoped<IInvestmentRepository, TestInvestmentRepository>();
             }
             else
             {
@@ -39,7 +39,6 @@ namespace SpicyGarnachas.InvestmentApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Portafolio API", Version = "v1" });
             });
         }
-
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

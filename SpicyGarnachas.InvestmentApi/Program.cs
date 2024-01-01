@@ -1,8 +1,3 @@
-using SpicyGarnachas.InvestmentApi;
-using SpicyGarnachas.InvestmentApi.Services;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.OpenApi.Models;
-
 namespace SpicyGarnachas.InvestmentApi;
 
 public class Program

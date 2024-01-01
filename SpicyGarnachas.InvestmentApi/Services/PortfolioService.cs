@@ -13,7 +13,6 @@ namespace SpicyGarnachas.InvestmentApi.Services
             this.repository = repository;
             this.logger = logger;
         }
-
         public async Task<(bool IsSuccess, Models.PortfolioModel?, string MessageError)> GetPortfolioData()
         {
             try

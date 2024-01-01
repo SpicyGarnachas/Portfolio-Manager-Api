@@ -9,7 +9,7 @@
         public string? platform { get; set; }
         public string? type { get; set; }
         public string? sector { get; set; }
-        public string? risk { get; set; }
-        public string? liquidity  { get; set; }
+        public int? risk { get; set; }
+        public int? liquidity  { get; set; }
     }
 }

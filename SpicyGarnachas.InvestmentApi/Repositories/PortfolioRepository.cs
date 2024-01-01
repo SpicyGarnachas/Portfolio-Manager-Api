@@ -1,4 +1,6 @@
 ﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
+using System;
+using Microsoft.Data.SqlClient;
 
 namespace SpicyGarnachas.InvestmentApi.Repositories
 {
@@ -15,23 +17,43 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
 
         public async Task<(bool IsSuccess, Models.PortfolioModel?, string MessageError)> GetPortfolioData()
         {
-            string connectionString = _configuration["stringConnection"];
-            try
+            string? connectionString = _configuration["stringConnection"];
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                Models.PortfolioModel? portfolio = new Models.PortfolioModel()
+                try
                 {
-                    id = 1,
-                    name = "My capital REAL",
-                    description = "All my investments and business.",
-                    version = "1"
-                };
-                await Task.Delay(0);
-                return (portfolio != null ? (true, portfolio, string.Empty) : (false, null, "No data"));
-            }
-            catch (Exception exceptionMessage)
-            {
-                logger.LogError(exceptionMessage.Message);
-                return (false, null, exceptionMessage.Message);
+                    connection.Open();
+                    string sql = "SELECT * FROM Portfolio";
+                    using SqlCommand command = new SqlCommand(sql, connection);
+                    using SqlDataReader dataReader = await command.ExecuteReaderAsync();
+                    Models.PortfolioModel? portfolio = null;
+                    if (dataReader.HasRows)
+                    {
+                        while (dataReader.Read())
+                        {
+                            portfolio = new Models.PortfolioModel()
+                            {
+                                id = Convert.ToInt32(dataReader["id"]),
+                                name = Convert.ToString(dataReader["name"]),
+                                description = Convert.ToString(dataReader["description"]),
+                                version = Convert.ToString(dataReader["version"])
+                            };
+                            
+                        }
+                        connection.Close();
+                        return (portfolio != null ? (true, portfolio, string.Empty) : (false, null, "No data"));
+                    }
+                    else
+                    {
+                        connection.Close();
+                        return (false, null, "No data");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex.Message);
+                    return (false, null, ex.Message);
+                }
             }
         }
     }

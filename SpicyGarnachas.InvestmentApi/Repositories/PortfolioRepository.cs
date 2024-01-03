@@ -1,5 +1,6 @@
 ﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 using System;
+using MySql.Data.MySqlClient;
 using Microsoft.Data.SqlClient;
 
 namespace SpicyGarnachas.InvestmentApi.Repositories
@@ -18,13 +19,16 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
         public async Task<(bool IsSuccess, Models.PortfolioModel?, string MessageError)> GetPortfolioData()
         {
             string? connectionString = _configuration["stringConnection"];
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
                     string sql = "SELECT * FROM Portfolio";
                     using SqlCommand command = new SqlCommand(sql, connection);
+
+                    var resulta = await connection.QueryAsync<PersonModel>(Query);
+
                     using SqlDataReader dataReader = await command.ExecuteReaderAsync();
                     Models.PortfolioModel? portfolio = null;
                     if (dataReader.HasRows)

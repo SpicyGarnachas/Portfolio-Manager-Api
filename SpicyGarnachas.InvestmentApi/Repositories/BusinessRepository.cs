@@ -21,10 +21,10 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                     portfolioId = 1,
                     name = "My fruit store",
                     description = "Retail fruit store",
-                    Sector = "Retail"
+                    sector = "Retail"
                 };
                 await Task.Delay(0);
-                return (business != null ? (true, business, string.Empty) : (false, null, "No data"));
+                return business != null ? (true, business, string.Empty) : (false, null, "No data");
             }
             catch (Exception exceptionMessage)
             {

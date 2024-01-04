@@ -21,7 +21,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                     portfolioId = 1,
                     name = "My fruit store TEST",
                     description = "Retail fruit store",
-                    Sector = "Retail"
+                    sector = "Retail"
                 };
                 await Task.Delay(0);
                 return (business != null ? (true, business, string.Empty) : (false, null, "No data"));

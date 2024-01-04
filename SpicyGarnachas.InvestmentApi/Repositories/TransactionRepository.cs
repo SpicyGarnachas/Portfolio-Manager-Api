@@ -41,7 +41,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                     value = 565
                 });
                 await Task.Delay(0);
-                return (transactions != null ? (true, transactions, string.Empty) : (false, null, "No data"));
+                return transactions != null ? (true, transactions, string.Empty) : (false, null, "No data");
             }
             catch (Exception exceptionMessage)
             {

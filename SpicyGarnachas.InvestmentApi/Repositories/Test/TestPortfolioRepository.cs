@@ -21,13 +21,18 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 string? connectionString = _configuration["stringConnection"];
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                PortfolioModel? business = new PortfolioModel()
                 {
-                    string sqlQuery = "SELECT * FROM Portfolio";
-                    var portfolio = await connection.QueryAsync<PortfolioModel>(sqlQuery);
-                    return portfolio.AsList().Count > 0 ? (IsSuccess: true, portfolio, string.Empty) : (IsSuccess: false, null, "No se encontraron resultados");
-                }
+                    id = 1,
+                    name = "My fruit store",
+                    description = "Retail fruit store",
+                    createdOn = DateTime.Now,
+                    updatedOn = DateTime.Now,
+                    userId = 1
+                };
+                IEnumerable<PortfolioModel>? portfolio = new List<PortfolioModel>() { business };
+                await Task.Delay(0);
+                return portfolio.AsList().Count > 0 ? (IsSuccess: true, portfolio, string.Empty) : (IsSuccess: false, null, "No data");
             }
             catch (Exception exceptionMessage)
             {

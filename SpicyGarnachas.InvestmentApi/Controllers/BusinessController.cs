@@ -23,5 +23,4 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
             return IsSuccess ? Ok(Result) : BadRequest(Result);
         }
     }
-
 }

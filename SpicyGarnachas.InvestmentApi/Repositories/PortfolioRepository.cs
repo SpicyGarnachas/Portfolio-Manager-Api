@@ -16,7 +16,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             _configuration = configuration;
         }
 
-        public async Task<(bool IsSuccess, Models.PortfolioModel?, string MessageError)> GetPortfolioData()
+        public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string MessageError)> GetPortfolioData()
         {
             string? connectionString = _configuration["stringConnection"];
             using (MySqlConnection connection = new MySqlConnection(connectionString))

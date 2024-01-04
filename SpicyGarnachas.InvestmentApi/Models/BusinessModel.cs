@@ -6,6 +6,6 @@
         public int? portfolioId { get; set; }
         public string? name { get; set; }
         public string? description { get; set; }
-        public string? Sector { get; set; }
+        public string? sector { get; set; }
     }
 }

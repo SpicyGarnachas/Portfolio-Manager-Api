@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using SpicyGarnachas.InvestmentApi.Models;
+using Microsoft.AspNetCore.Mvc;
 using SpicyGarnachas.InvestmentApi.Services.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi.Controllers
@@ -17,7 +18,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
 
         [HttpGet]
         [Route("[action]/")]
-        public async Task<ActionResult<List<Models.TransactionModel>?>> GetTransactionsData()
+        public async Task<ActionResult<IEnumerable<TransactionModel>?>> GetTransactionsData()
         {
             var (IsSuccess, Result, MessageError) = await services.GetTransactionsData();
             return IsSuccess ? Ok(Result) : BadRequest(Result);

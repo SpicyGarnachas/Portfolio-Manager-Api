@@ -1,4 +1,5 @@
-﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
+﻿using SpicyGarnachas.InvestmentApi.Models;
+using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
 {
@@ -12,7 +13,7 @@ namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
             this.repository = repository;
             this.logger = logger;
         }
-        public async Task<(bool IsSuccess, List<Models.TransactionModel>?, string MessageError)> GetTransactionsData()
+        public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string MessageError)> GetTransactionsData()
         {
             try
             {

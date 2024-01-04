@@ -1,7 +1,9 @@
-﻿namespace SpicyGarnachas.InvestmentApi.Repositories.Interfaces
+﻿using SpicyGarnachas.InvestmentApi.Models;
+
+namespace SpicyGarnachas.InvestmentApi.Repositories.Interfaces
 {
     public interface ITransactionRepository
     {
-        Task<(bool IsSuccess, List<Models.TransactionModel>?, string MessageError)> GetTransactionsData();
+        Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string MessageError)> GetTransactionsData();
     }
 }

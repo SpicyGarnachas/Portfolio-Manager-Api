@@ -1,47 +1,33 @@
-﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
+using SpicyGarnachas.InvestmentApi.Models;
+using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi.Repositories
 {
     public class TransactionRepository : ITransactionRepository
     {
         private readonly ILogger<TransactionRepository> logger;
+        private readonly IConfiguration _configuration;
 
-        public TransactionRepository(ILogger<TransactionRepository> logger)
+        public TransactionRepository(ILogger<TransactionRepository> logger, IConfiguration configuration)
         {
             this.logger = logger;
+            _configuration = configuration;
         }
 
-        public async Task<(bool IsSuccess, List<Models.TransactionModel>?, string MessageError)> GetTransactionsData()
+        public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string MessageError)> GetTransactionsData()
         {
             try
             {
-                List<Models.TransactionModel> transactions = new List<Models.TransactionModel>();
-                transactions.Add(new Models.TransactionModel()
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    id = 1,
-                    investmentId = 1,
-                    type = "Income",
-                    date = DateTime.Now,
-                    value = 565
-                });
-                transactions.Add(new Models.TransactionModel()
-                {
-                    id = 2,
-                    investmentId = 1,
-                    type = "Expense",
-                    date = DateTime.Now,
-                    value = 565
-                });
-                transactions.Add(new Models.TransactionModel()
-                {
-                    id = 3,
-                    investmentId = 1,
-                    type = "Returns",
-                    date = DateTime.Now,
-                    value = 565
-                });
-                await Task.Delay(0);
-                return transactions != null ? (true, transactions, string.Empty) : (false, null, "No data");
+                    string sqlQuery = "SELECT * FROM Transactions";
+                    var transactions = await connection.QueryAsync<TransactionRepository>(sqlQuery);
+                    return transactions.AsList().Count > 0 ? (IsSuccess: true, transactions, string.Empty) : (IsSuccess: false, null, "No data");
+                }
             }
             catch (Exception exceptionMessage)
             {

@@ -1,7 +1,5 @@
 ﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
-using System;
 using MySql.Data.MySqlClient;
-using Microsoft.Data.SqlClient;
 using SpicyGarnachas.InvestmentApi.Models;
 using Dapper;
 

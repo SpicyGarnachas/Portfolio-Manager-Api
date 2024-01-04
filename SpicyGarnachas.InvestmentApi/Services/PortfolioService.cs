@@ -1,5 +1,6 @@
 ﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 using SpicyGarnachas.InvestmentApi.Services.Interfaces;
+using SpicyGarnachas.InvestmentApi.Models;
 
 namespace SpicyGarnachas.InvestmentApi.Services
 {
@@ -13,7 +14,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
             this.repository = repository;
             this.logger = logger;
         }
-        public async Task<(bool IsSuccess, Models.PortfolioModel?, string MessageError)> GetPortfolioData()
+        public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string MessageError)> GetPortfolioData()
         {
             try
             {

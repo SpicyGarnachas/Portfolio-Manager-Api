@@ -2,6 +2,8 @@
 using System;
 using MySql.Data.MySqlClient;
 using Microsoft.Data.SqlClient;
+using SpicyGarnachas.InvestmentApi.Models;
+using Dapper;
 
 namespace SpicyGarnachas.InvestmentApi.Repositories
 {
@@ -18,47 +20,28 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
 
         public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string MessageError)> GetPortfolioData()
         {
-            string? connectionString = _configuration["stringConnection"];
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+
+            try
             {
-                try
-                {
-                    connection.Open();
-                    string sql = "SELECT * FROM Portfolio";
-                    using SqlCommand command = new SqlCommand(sql, connection);
+                string? connectionString = _configuration["stringConnection"];
 
-                    var resulta = await connection.QueryAsync<PersonModel>(Query);
-
-                    using SqlDataReader dataReader = await command.ExecuteReaderAsync();
-                    Models.PortfolioModel? portfolio = null;
-                    if (dataReader.HasRows)
-                    {
-                        while (dataReader.Read())
-                        {
-                            portfolio = new Models.PortfolioModel()
-                            {
-                                id = Convert.ToInt32(dataReader["id"]),
-                                name = Convert.ToString(dataReader["name"]),
-                                description = Convert.ToString(dataReader["description"]),
-                                version = Convert.ToString(dataReader["version"])
-                            };
-                            
-                        }
-                        connection.Close();
-                        return (portfolio != null ? (true, portfolio, string.Empty) : (false, null, "No data"));
-                    }
-                    else
-                    {
-                        connection.Close();
-                        return (false, null, "No data");
-                    }
-                }
-                catch (Exception ex)
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    logger.LogError(ex.Message);
-                    return (false, null, ex.Message);
+                    string sqlQuery = "SELECT * FROM Portfolio";
+                    var portfolio = await connection.QueryAsync<PortfolioModel>(sqlQuery);
+                    return portfolio.AsList().Count > 0 ? (IsSuccess: true, portfolio, string.Empty) : (IsSuccess: false, null, "No data");
                 }
             }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
+            }
+        }
+
+        Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string MessageError)> IPortfolioRepository.GetPortfolioData()
+        {
+            throw new NotImplementedException();
         }
     }
 }

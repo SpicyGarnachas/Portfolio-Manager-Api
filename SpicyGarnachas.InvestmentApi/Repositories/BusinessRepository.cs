@@ -1,34 +1,33 @@
 ﻿using SpicyGarnachas.InvestmentApi.Models;
 using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 using Dapper;
+using MySql.Data.MySqlClient;
 
 namespace SpicyGarnachas.InvestmentApi.Repositories
 {
     public class BusinessRepository : IBusinessRepository
     {
         private readonly ILogger<BusinessRepository> logger;
+        private readonly IConfiguration _configuration;
 
-        public BusinessRepository(ILogger<BusinessRepository> logger)
+        public BusinessRepository(ILogger<BusinessRepository> logger, IConfiguration configuration)
         {
             this.logger = logger;
+            _configuration = configuration;
         }
 
         public async Task<(bool IsSuccess, IEnumerable<BusinessModel>?, string MessageError)> GetBusinessData()
         {
             try
             {
-                BusinessModel? business = new BusinessModel()
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    id = 1,
-                    portfolioId = 1,
-                    name = "My fruit store",
-                    description = "Retail fruit store",
-                    sector = "Retail"
-                };
-                await Task.Delay(0);
-                IEnumerable<BusinessModel>? result = new List<BusinessModel>() { business };
-                await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
+                    string sqlQuery = "SELECT * FROM Business";
+                    var business = await connection.QueryAsync<BusinessModel>(sqlQuery);
+                    return business.AsList().Count > 0 ? (IsSuccess: true, business, string.Empty) : (IsSuccess: false, null, "No data");
+                }
             }
             catch (Exception exceptionMessage)
             {

@@ -20,7 +20,6 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
 
         public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string MessageError)> GetPortfolioData()
         {
-
             try
             {
                 string? connectionString = _configuration["stringConnection"];

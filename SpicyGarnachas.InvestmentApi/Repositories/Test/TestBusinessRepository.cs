@@ -20,7 +20,31 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 BusinessModel? business = new BusinessModel()
                 {
                     id = 1,
-                    portfolioId = 1,
+                    portfolioId = 2,
+                    name = "My fruit store TEST",
+                    description = "Retail fruit store",
+                    sector = "Retail"
+                };
+                await Task.Delay(0);
+                IEnumerable<BusinessModel>? result = new List<BusinessModel>() { business };
+                await Task.Delay(0);
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
+            }
+            catch (Exception exceptionMessage)
+            {
+                logger.LogError(exceptionMessage.Message);
+                return (false, null, exceptionMessage.Message);
+            }
+        }
+
+        public async Task<(bool IsSuccess, IEnumerable<BusinessModel>?, string MessageError)> GetBusinessDataByPortfolioId(int id)
+        {
+            try
+            {
+                BusinessModel? business = new BusinessModel()
+                {
+                    id = 1,
+                    portfolioId = id,
                     name = "My fruit store TEST",
                     description = "Retail fruit store",
                     sector = "Retail"

@@ -29,6 +29,20 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 return (false, null, ex.Message);
             }
         }
+        public async Task<(bool IsSuccess, IEnumerable<BusinessModel>?, string MessageError)> GetBusinessDataByPortfolioId(int id)
+        {
+            try
+            {
+                var (IsSuccess, Result, MessageError) = await repository.GetBusinessDataByPortfolioId(id);
+                await Task.Delay(0);
+                return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
+            }
+        }
     }
 }
 

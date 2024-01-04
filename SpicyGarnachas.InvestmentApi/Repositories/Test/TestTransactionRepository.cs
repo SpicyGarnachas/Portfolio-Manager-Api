@@ -1,4 +1,6 @@
-﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
+﻿using Dapper;
+using SpicyGarnachas.InvestmentApi.Models;
+using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi.Repositories.Test
 {
@@ -11,38 +13,37 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             this.logger = logger;
         }
 
-        public async Task<(bool IsSuccess, List<Models.TransactionModel>?, string MessageError)> GetTransactionsData()
+        public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string MessageError)> GetTransactionsData()
         {
             try
             {
-
-                List<Models.TransactionModel> transactions = new List<Models.TransactionModel>();
-                transactions?.Add(new Models.TransactionModel()
+                TransactionModel firstTransaction = new TransactionModel()
                 {
                     id = 1,
                     investmentId = 1,
-                    type = "Income TEST",
+                    type = "Returns TEST",
                     date = DateTime.Now,
                     value = 565
-                });
-                transactions?.Add(new Models.TransactionModel()
+                };
+                TransactionModel secondTransaction = new TransactionModel()
                 {
                     id = 2,
                     investmentId = 1,
-                    type = "Expense TEST",
+                    type = "Returns TEST",
                     date = DateTime.Now,
                     value = 565
-                });
-                transactions?.Add(new Models.TransactionModel()
+                };
+                TransactionModel thirdTransaction = new TransactionModel()
                 {
                     id = 3,
                     investmentId = 1,
                     type = "Returns TEST",
                     date = DateTime.Now,
                     value = 565
-                });
+                };
+                IEnumerable<TransactionModel>? result = new List<TransactionModel>() { firstTransaction, secondTransaction, thirdTransaction };
                 await Task.Delay(0);
-                return transactions != null ? (true, transactions, string.Empty) : (false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
             }
             catch (Exception exceptionMessage)
             {
@@ -52,4 +53,3 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
         }
     }
 }
-

@@ -8,19 +8,16 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
     public class TestPortfolioRepository : IPortfolioRepository
     {
         private readonly ILogger<TestPortfolioRepository> logger;
-        private readonly IConfiguration _configuration;
 
-        public TestPortfolioRepository(ILogger<TestPortfolioRepository> logger, IConfiguration configuration)
+        public TestPortfolioRepository(ILogger<TestPortfolioRepository> logger)
         {
             this.logger = logger;
-            _configuration = configuration;
         }
 
         public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string MessageError)> GetPortfolioData()
         {
             try
             {
-                string? connectionString = _configuration["stringConnection"];
                 PortfolioModel? portfolio = new PortfolioModel()
                 {
                     id = 1,

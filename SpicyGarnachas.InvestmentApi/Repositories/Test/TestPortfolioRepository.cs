@@ -20,7 +20,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 PortfolioModel? portfolio = new PortfolioModel()
                 {
                     id = 1,
-                    name = "My fruit store",
+                    name = "My fruit store TEST",
                     description = "Retail fruit store",
                     createdOn = DateTime.Now,
                     updatedOn = DateTime.Now,
@@ -44,7 +44,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 PortfolioModel? portfolio = new PortfolioModel()
                 {
                     id = 1,
-                    name = "My fruit store",
+                    name = "My fruit store TEST",
                     description = "Retail fruit store",
                     createdOn = DateTime.Now,
                     updatedOn = DateTime.Now,

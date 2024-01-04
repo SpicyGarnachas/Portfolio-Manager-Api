@@ -1,4 +1,5 @@
-﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
+﻿using SpicyGarnachas.InvestmentApi.Models;
+using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 using SpicyGarnachas.InvestmentApi.Services.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi.Services
@@ -14,7 +15,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
             this.logger = logger;
         }
 
-        public async Task<(bool IsSuccess, Models.BusinessModel?, string MessageError)> GetBusinessData()
+        public async Task<(bool IsSuccess, IEnumerable<BusinessModel>?, string MessageError)> GetBusinessData()
         {
             try
             {

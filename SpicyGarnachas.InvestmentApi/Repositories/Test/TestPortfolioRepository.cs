@@ -21,7 +21,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 string? connectionString = _configuration["stringConnection"];
-                PortfolioModel? business = new PortfolioModel()
+                PortfolioModel? portfolio = new PortfolioModel()
                 {
                     id = 1,
                     name = "My fruit store",
@@ -30,9 +30,9 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                     updatedOn = DateTime.Now,
                     userId = 1
                 };
-                IEnumerable<PortfolioModel>? portfolio = new List<PortfolioModel>() { business };
+                IEnumerable<PortfolioModel>? result = new List<PortfolioModel>() { portfolio };
                 await Task.Delay(0);
-                return portfolio.AsList().Count > 0 ? (IsSuccess: true, portfolio, string.Empty) : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
             }
             catch (Exception exceptionMessage)
             {

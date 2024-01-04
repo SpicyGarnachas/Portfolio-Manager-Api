@@ -15,7 +15,6 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             this.logger = logger;
             _configuration = configuration;
         }
-
         public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string MessageError)> GetTransactionsData()
         {
             try
@@ -25,6 +24,25 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     string sqlQuery = "SELECT * FROM Transactions";
+                    var transactions = await connection.QueryAsync<TransactionModel>(sqlQuery);
+                    return transactions.AsList().Count > 0 ? (IsSuccess: true, transactions, string.Empty) : (IsSuccess: false, null, "No data");
+                }
+            }
+            catch (Exception exceptionMessage)
+            {
+                logger.LogError(exceptionMessage.Message);
+                return (false, null, exceptionMessage.Message);
+            }
+        }
+        public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string MessageError)> GetTransactionsDataByPortfolioId(int id)
+        {
+            try
+            {
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = $"SELECT * FROM Transactions WHERE investmentId = {id}";
                     var transactions = await connection.QueryAsync<TransactionModel>(sqlQuery);
                     return transactions.AsList().Count > 0 ? (IsSuccess: true, transactions, string.Empty) : (IsSuccess: false, null, "No data");
                 }

@@ -36,9 +36,24 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             }
         }
 
-        Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string MessageError)> IPortfolioRepository.GetPortfolioData()
+        public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string MessageError)> GetPortfolioById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = "SELECT * FROM Portfolio WHERE Id = @id";
+                    var portfolio = await connection.QueryAsync<PortfolioModel>(sqlQuery);
+                    return portfolio.AsList().Count > 0 ? (IsSuccess: true, portfolio, string.Empty) : (IsSuccess: false, null, "No data");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
+            }
         }
     }
 }

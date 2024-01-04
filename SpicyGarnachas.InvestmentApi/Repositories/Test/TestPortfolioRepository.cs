@@ -1,6 +1,5 @@
 ﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 using SpicyGarnachas.InvestmentApi.Models;
-using MySql.Data.MySqlClient;
 using Dapper;
 
 namespace SpicyGarnachas.InvestmentApi.Repositories.Test
@@ -35,6 +34,30 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             {
                 logger.LogError(exceptionMessage.Message);
                 return (false, null, exceptionMessage.Message);
+            }
+        }
+        
+        public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string MessageError)> GetPortfolioById(int id)
+        {
+            try
+            {
+                PortfolioModel? portfolio = new PortfolioModel()
+                {
+                    id = 1,
+                    name = "My fruit store",
+                    description = "Retail fruit store",
+                    createdOn = DateTime.Now,
+                    updatedOn = DateTime.Now,
+                    userId = id
+                };
+                IEnumerable<PortfolioModel>? result = new List<PortfolioModel>() { portfolio };
+                await Task.Delay(0);
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
             }
         }
     }

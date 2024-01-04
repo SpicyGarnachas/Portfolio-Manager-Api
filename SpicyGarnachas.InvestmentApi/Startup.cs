@@ -19,8 +19,16 @@ namespace SpicyGarnachas.InvestmentApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+            });
+            
             services.AddSingleton<IConfiguration>(Configuration);
-            if (!webHostEnvironment.IsDevelopment())
+            if (webHostEnvironment.IsDevelopment())
             {
                 services.AddScoped<IPortfolioService, PortfolioService>();
                 services.AddScoped<IPortfolioRepository, TestPortfolioRepository>();
@@ -50,6 +58,7 @@ namespace SpicyGarnachas.InvestmentApi
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

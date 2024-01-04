@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpicyGarnachas.InvestmentApi.Services.Interfaces;
 using SpicyGarnachas.InvestmentApi.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace SpicyGarnachas.InvestmentApi.Controllers
 {
 
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")] 
     public class BusinessController : ControllerBase
     {
         private readonly IBusinessService services;

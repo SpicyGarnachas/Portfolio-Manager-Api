@@ -1,4 +1,6 @@
-﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
+﻿using Dapper;
+using SpicyGarnachas.InvestmentApi.Models;
+using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi.Repositories.Test
 {
@@ -11,11 +13,11 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             this.logger = logger;
         }
 
-        public async Task<(bool IsSuccess, Models.InvestmentModel?, string MessageError)> GetInvestmentData()
+        public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string MessageError)> GetInvestmentData()
         {
             try
             {
-                Models.InvestmentModel? investment = new Models.InvestmentModel()
+                InvestmentModel? investment = new InvestmentModel()
                 {
                     id = 1,
                     portfolioId = 1,
@@ -27,8 +29,9 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                     risk = 1,
                     liquidity = 1
                 };
+                IEnumerable<InvestmentModel>? result = new List<InvestmentModel>() { investment };
                 await Task.Delay(0);
-                return (investment != null ? (true, investment, string.Empty) : (false, null, "No data"));
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
             }
             catch (Exception exceptionMessage)
             {

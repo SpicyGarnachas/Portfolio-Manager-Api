@@ -1,34 +1,33 @@
-﻿using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
+using SpicyGarnachas.InvestmentApi.Models;
+using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi.Repositories
 {
     public class InvestmentRepository : IInvestmentRepository
     {
         private readonly ILogger<InvestmentRepository> logger;
+        private readonly IConfiguration _configuration;
 
-        public InvestmentRepository(ILogger<InvestmentRepository> logger)
+        public InvestmentRepository(ILogger<InvestmentRepository> logger, IConfiguration configuration)
         {
             this.logger = logger;
+            _configuration = configuration;
         }
 
-        public async Task<(bool IsSuccess, Models.InvestmentModel?, string MessageError)> GetInvestmentData()
+        public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string MessageError)> GetInvestmentData()
         {
             try
             {
-                Models.InvestmentModel? investment = new Models.InvestmentModel()
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    id = 1,
-                    portfolioId = 1,
-                    name="Bank Account",
-                    description="my default account",
-                    platform="Bank of the world",
-                    type="Bank",
-                    sector="Financials",
-                    risk=1,
-                    liquidity=1
-                };
-                await Task.Delay(0);
-                return investment != null ? (true, investment, string.Empty) : (false, null, "No data");
+                    string sqlQuery = "SELECT * FROM Investment";
+                    var investment = await connection.QueryAsync<InvestmentModel>(sqlQuery);
+                    return investment.AsList().Count > 0 ? (IsSuccess: true, investment, string.Empty) : (IsSuccess: false, null, "No data");
+                }
             }
             catch (Exception exceptionMessage)
             {

@@ -66,11 +66,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 string sqlQuery = string.Empty;
                 List<string> updateFields = new List<string>();
 
-                if(userId != 0)
-                {
-                    updateFields.Add($"userId = {userId}");
-                }
-                if(name != null || description != string.Empty)
+                if(name != null || name != string.Empty)
                 {
                     updateFields.Add($"name = '{name}'");
                 }

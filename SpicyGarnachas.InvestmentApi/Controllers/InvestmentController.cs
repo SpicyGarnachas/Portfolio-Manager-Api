@@ -49,5 +49,13 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
             var (IsSuccess, Message) = await services.ModifyInvestment(id, portfolioId, name, description, platform, type, sector, risk, liquidity);
             return IsSuccess ? Ok(Message) : BadRequest(Message);
         }
+
+        [HttpDelete]
+        [Route("DeleteInvestment/{id}/{portfolioId}")]
+        public async Task<ActionResult<string>> DeleteInvestment(int id, int portfolioId)
+        {
+            var (IsSuccess, Message) = await services.DeleteInvestment(id, portfolioId);
+            return IsSuccess ? Ok(Message) : BadRequest(Message);
+        }
     }
 }

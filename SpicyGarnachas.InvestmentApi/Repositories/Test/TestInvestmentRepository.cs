@@ -94,5 +94,19 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 return (false, ex.Message);
             }
         }
+
+        public async Task<(bool IsSuccess, string Message)> DeleteInvestment(int id, int portfolioId)
+        {
+            try
+            {
+                await Task.Delay(0);
+                return (true, "Investment deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
     }
 }

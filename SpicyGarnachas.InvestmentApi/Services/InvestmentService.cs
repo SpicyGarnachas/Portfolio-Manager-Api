@@ -47,8 +47,8 @@ namespace SpicyGarnachas.InvestmentApi.Services
         {
             try
             {
-                var (IsSuccess, MessageError) = await repository.CreateNewInvestment(portfolioId, name, description, platform, type, sector, risk, liquidity);
-                return IsSuccess ? (true, string.Empty) : (false, MessageError);
+                var (IsSuccess, Message) = await repository.CreateNewInvestment(portfolioId, name, description, platform, type, sector, risk, liquidity);
+                return IsSuccess ? (true, Message) : (false, Message);
             }
             catch (Exception ex)
             {
@@ -123,7 +123,21 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 sqlQuery += $" WHERE id = {id} AND portfolioId = {portfolioId}";
 
                 var (IsSuccess, Message) = await repository.ModifyInvestment(id, sqlQuery);
-                return IsSuccess.Equals(true) ? (true, string.Empty) : (false, Message);
+                return IsSuccess.Equals(true) ? (true, Message) : (false, Message);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
+        
+        public async Task<(bool IsSuccess, string Message)> DeleteInvestment(int id, int portfolioId)
+        {
+            try
+            {
+                var (IsSuccess, Message) = await repository.DeleteInvestment(id, portfolioId);
+                return IsSuccess.Equals(true) ? (true, Message) : (false, Message);
             }
             catch (Exception ex)
             {

@@ -93,6 +93,25 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                 return (false, ex.Message);
             }
         }
+
+        public async Task <(bool IsSuccess, string Message)> DeleteInvestment(int id, int portfolioId)
+        {
+            try
+            {
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = $"DELETE FROM Investment WHERE id = {id} AND portfolioId = {portfolioId}";
+                    await connection.ExecuteAsync(sqlQuery);
+                    return (true, "Investment deleted successfully");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
     }
 }
-

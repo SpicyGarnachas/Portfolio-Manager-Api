@@ -75,6 +75,27 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                 return (false, ex.Message);
             }
         }
+
+        public async Task <(bool IsSuccess, string Message)> ModifyBusiness(int id, int userId, string name, string description)
+        {
+            try
+            {
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = $"UPDATE Business SET name = '{name}', description = '{description}', updatedOn = NOW() WHERE id = {id} AND userId = {userId}";
+                    await connection.ExecuteAsync(sqlQuery);
+                    return (true, "Business modified successfully");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
+
         public async Task<(bool IsSuccess, string Message)> DeleteBusiness(int id, int portfolioId)
         {
             try

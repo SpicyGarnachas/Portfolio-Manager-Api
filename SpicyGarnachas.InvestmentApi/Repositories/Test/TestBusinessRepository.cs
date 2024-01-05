@@ -75,6 +75,20 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             }
         }
 
+        public async Task<(bool IsSuccess, string Message)> ModifyBusiness(int id, int userId, string name, string description)
+        {
+            try
+            {
+                await Task.Delay(0);
+                return (IsSuccess: true, Message: "Business modified successfully");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
+
         public async Task<(bool IsSuccess, string Message)> DeleteBusiness(int id, int portfolioId)
         {
             try

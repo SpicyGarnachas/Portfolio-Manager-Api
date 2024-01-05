@@ -20,7 +20,6 @@ namespace SpicyGarnachas.InvestmentApi.Services
             try
             {
                 var (IsSuccess, Result, MessageError) = await repository.GetBusinessData();
-                await Task.Delay(0);
                 return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
             }
             catch (Exception ex)
@@ -34,7 +33,6 @@ namespace SpicyGarnachas.InvestmentApi.Services
             try
             {
                 var (IsSuccess, Result, MessageError) = await repository.GetBusinessDataByPortfolioId(id);
-                await Task.Delay(0);
                 return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
             }
             catch (Exception ex)
@@ -49,7 +47,6 @@ namespace SpicyGarnachas.InvestmentApi.Services
             try
             {
                 var (IsSuccess, Message) = await repository.CreateNewBusiness(portfolioId,  name,  description,  sector);
-                await Task.Delay(0);
                 return IsSuccess ? (true, string.Empty) : (false, Message);
             }
             catch (Exception ex)
@@ -58,12 +55,26 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 return (false, ex.Message);
             }
         }
+
+        public async Task<(bool IsSuccess, string Message)> ModifyBusiness(int id, int userId, string name, string description)
+        {
+            try
+            {
+                var (IsSuccess, Message) = await repository.ModifyBusiness(id, userId, name, description);
+                return IsSuccess ? (true, string.Empty) : (false, Message);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
+
         public async Task<(bool IsSuccess, string Message)> DeleteBusiness(int id, int portfolioId)
         {
             try
             {
                 var (IsSuccess, Message) = await repository.DeleteBusiness(id, portfolioId);
-                await Task.Delay(0);
                 return IsSuccess ? (true, string.Empty) : (false, Message);
             }
             catch (Exception ex)

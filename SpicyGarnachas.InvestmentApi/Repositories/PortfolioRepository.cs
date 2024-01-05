@@ -95,6 +95,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                 return (false, ex.Message);
             }
         }
+        
         public async Task<(bool IsSuccess, string Message)> DeletePortfolio(int id, int userId)
         {
             try

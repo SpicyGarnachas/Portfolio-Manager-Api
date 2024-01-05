@@ -56,7 +56,5 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
             var (IsSuccess, Message) = await services.DeletePortfolio(id, userId);
             return IsSuccess ? Ok(Message) : BadRequest(Message);
         }
-
-
     }
 }

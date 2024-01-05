@@ -74,7 +74,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
                     isFirst = false;
                 }
 
-                updateFields.Add($"updatedOn = 'NOW()'");
+                updateFields.Add($"updatedOn = NOW()");
 
                 foreach (string field in updateFields)
                 {

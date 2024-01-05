@@ -26,7 +26,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetBusinessDataByPortfolioId/{id}")]
+        [Route("GetBusinessDataByPortfolioId/id={id}")]
         public async Task<ActionResult<IEnumerable<BusinessModel>?>> GetBusinessDataByPortfolioId(int id)
         {
             var (IsSuccess, Result, Message) = await services.GetBusinessDataByPortfolioId(id);
@@ -34,7 +34,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpPost]
-        [Route("CreateNewBusiness/{portfolioId}/{name}/{description}/{sector}")]
+        [Route("CreateNewBusiness/portfolioId={portfolioId}&{name}=name&{description}=description&{sector}=sector")]
         public async Task<ActionResult<string>> CreateNewBusiness(int portfolioId, string name, string description, string sector)
         {
             var (IsSuccess, Message) = await services.CreateNewBusiness(portfolioId, name, description, sector);
@@ -42,7 +42,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpPut]
-        [Route("ModifyBusiness/{id}/{portfolioId}")]
+        [Route("ModifyBusiness/id={id}&portfolioId={portfolioId}")]
         public async Task<ActionResult<string>> ModifyBusiness(int id, int portfolioId, string name, string description, string sector)
         {
             var (IsSuccess, Message) = await services.ModifyBusiness(id, portfolioId, name, description, sector);
@@ -50,7 +50,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteBusiness/{id}/{portfolioId}")]
+        [Route("DeleteBusiness/id={id}&portfolioId={portfolioId}")]
         public async Task<ActionResult<string>> DeleteBusiness(int id, int portfolioId)
         {
             var (IsSuccess, Message) = await services.DeleteBusiness(id, portfolioId);

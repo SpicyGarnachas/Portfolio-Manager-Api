@@ -17,7 +17,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpGet]
-        [Route("LoginByUserAndPassword/id={id}&password={password}")]
+        [Route("LoginByUserAndPassword/username={username}&password={password}")]
         public async Task<ActionResult<LoginModel>?> LoginByUserAndPassword(string username, string password)
         {
             //var (IsSuccess, Result, Message) = await services.LoginByUserAndPassword(string username, string password);

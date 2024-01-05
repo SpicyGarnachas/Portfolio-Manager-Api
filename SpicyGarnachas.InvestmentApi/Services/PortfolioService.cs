@@ -19,7 +19,6 @@ namespace SpicyGarnachas.InvestmentApi.Services
             try
             {
                 var (IsSuccess, Result, MessageError) = await repository.GetPortfolioData();
-                await Task.Delay(0);
                 return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
             }
             catch (Exception ex)
@@ -33,7 +32,6 @@ namespace SpicyGarnachas.InvestmentApi.Services
             try
             {
                 var (IsSuccess, Result, MessageError) = await repository.GetPortfolioById(id);
-                await Task.Delay(0);
                 return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
             }
             catch (Exception ex)
@@ -48,7 +46,6 @@ namespace SpicyGarnachas.InvestmentApi.Services
             try
             {
                 var (IsSuccess, Message) = await repository.CreateNewPortfolio(userId, name, description);
-                await Task.Delay(0);
                 return IsSuccess.Equals(true) ? (true, string.Empty) : (false, Message);
             }
             catch (Exception ex)
@@ -97,7 +94,6 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 }
 
                 var (IsSuccess, Message) = await repository.ModifyPorfolio(id, sqlQuery);
-                await Task.Delay(0);
                 return IsSuccess.Equals(true) ? (true, string.Empty) : (false, Message);
             }
             catch (Exception ex)
@@ -112,7 +108,6 @@ namespace SpicyGarnachas.InvestmentApi.Services
             try
             {
                 var (IsSuccess, Message) = await repository.DeletePortfolio(id, userId);
-                await Task.Delay(0);
                 return IsSuccess.Equals(true) ? (true, string.Empty) : (false, Message);
             }
             catch (Exception ex)

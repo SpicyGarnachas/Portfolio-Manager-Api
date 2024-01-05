@@ -19,8 +19,8 @@ namespace SpicyGarnachas.InvestmentApi.Services
         {
             try
             {
-                var (IsSuccess, Result, MessageError) = await repository.GetBusinessData();
-                return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
+                var (IsSuccess, Result, Message) = await repository.GetBusinessData();
+                return IsSuccess ? (true, Result, Message) : (false, null, Message);
             }
             catch (Exception ex)
             {
@@ -32,8 +32,8 @@ namespace SpicyGarnachas.InvestmentApi.Services
         {
             try
             {
-                var (IsSuccess, Result, MessageError) = await repository.GetBusinessDataByPortfolioId(id);
-                return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
+                var (IsSuccess, Result, Message) = await repository.GetBusinessDataByPortfolioId(id);
+                return IsSuccess ? (true, Result, Message) : (false, null, Message);
             }
             catch (Exception ex)
             {
@@ -47,7 +47,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
             try
             {
                 var (IsSuccess, Message) = await repository.CreateNewBusiness(portfolioId, name, description, sector);
-                return IsSuccess ? (true, string.Empty) : (false, Message);
+                return IsSuccess ? (true, Message) : (false, Message);
             }
             catch (Exception ex)
             {
@@ -95,7 +95,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 sqlQuery += $" WHERE id = {id} AND portfolioId = {portfolioId}";
 
                 var (IsSuccess, Message) = await repository.ModifyBusiness(id, sqlQuery);
-                return IsSuccess ? (true, string.Empty) : (false, Message);
+                return IsSuccess ? (true, Message) : (false, Message);
             }
             catch (Exception ex)
             {
@@ -109,7 +109,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
             try
             {
                 var (IsSuccess, Message) = await repository.DeleteBusiness(id, portfolioId);
-                return IsSuccess ? (true, string.Empty) : (false, Message);
+                return IsSuccess ? (true, Message) : (false, Message);
             }
             catch (Exception ex)
             {

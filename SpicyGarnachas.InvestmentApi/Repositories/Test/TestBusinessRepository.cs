@@ -28,7 +28,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 await Task.Delay(0);
                 IEnumerable<BusinessModel>? result = new List<BusinessModel>() { business };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "Database without businesses TEST");
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 await Task.Delay(0);
                 IEnumerable<BusinessModel>? result = new List<BusinessModel>() { business };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "User has no businesses TEST");
             }
             catch (Exception ex)
             {

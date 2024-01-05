@@ -28,7 +28,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 };
                 IEnumerable<PortfolioModel>? result = new List<PortfolioModel>() { portfolio };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "Database without portfolios TEST");
             }
             catch (Exception exceptionMessage)
             {
@@ -52,7 +52,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 };
                 IEnumerable<PortfolioModel>? result = new List<PortfolioModel>() { portfolio };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "user has no portfolios TEST");
             }
             catch (Exception ex)
             {

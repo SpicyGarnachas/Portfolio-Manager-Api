@@ -46,7 +46,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 };
                 IEnumerable<TransactionModel>? result = new List<TransactionModel>() { firstTransaction, secondTransaction, thirdTransaction };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "Database without Transactions TEST");
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 };
                 IEnumerable<TransactionModel>? result = new List<TransactionModel>() { firstTransaction };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "User has no Transactions in this portfolio TEST");
             }
             catch (Exception ex)
             {

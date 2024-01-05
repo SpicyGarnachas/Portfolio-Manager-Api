@@ -26,7 +26,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                 {
                     string sqlQuery = "SELECT * FROM Investment";
                     var investment = await connection.QueryAsync<InvestmentModel>(sqlQuery);
-                    return investment.AsList().Count > 0 ? (IsSuccess: true, investment, string.Empty) : (IsSuccess: false, null, "No data");
+                    return investment.AsList().Count > 0 ? (IsSuccess: true, investment, string.Empty) : (IsSuccess: false, null, "Database without investments");
                 }
             }
             catch (Exception ex)
@@ -45,7 +45,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                 {
                     string sqlQuery = $"SELECT * FROM Investment where portfolioId = {id}";
                     var investment = await connection.QueryAsync<InvestmentModel>(sqlQuery);
-                    return investment.AsList().Count > 0 ? (IsSuccess: true, investment, string.Empty) : (IsSuccess: false, null, "No data");
+                    return investment.AsList().Count > 0 ? (IsSuccess: true, investment, string.Empty) : (IsSuccess: false, null, "User has no investments");
                 }
             }
             catch (Exception ex)

@@ -18,8 +18,8 @@ namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
         {
             try
             {
-                var (IsSuccess, Result, MessageError) = await repository.GetTransactionsData();
-                return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
+                var (IsSuccess, Result, Message) = await repository.GetTransactionsData();
+                return IsSuccess ? (true, Result, string.Empty) : (false, null, Message);
             }
             catch (Exception ex)
             {
@@ -32,8 +32,8 @@ namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
         {
             try
             {
-                var (IsSuccess, Result, MessageError) = await repository.GetTransactionsDataByPortfolioId(id);
-                return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
+                var (IsSuccess, Result, Message) = await repository.GetTransactionsDataByPortfolioId(id);
+                return IsSuccess ? (true, Result, string.Empty) : (false, null, Message);
             }
             catch (Exception ex)
             {

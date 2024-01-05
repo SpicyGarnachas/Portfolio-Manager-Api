@@ -43,6 +43,21 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 return (false, null, ex.Message);
             }
         }
+
+        public async Task<(bool IsSuccess, string Message)> CreateNewBusiness(int portfolioId, string name, string description, string sector)
+        {
+            try
+            {
+                var (IsSuccess, Message) = await repository.CreateNewBusiness(portfolioId,  name,  description,  sector);
+                await Task.Delay(0);
+                return IsSuccess ? (true, string.Empty) : (false, Message);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
     }
 }
 

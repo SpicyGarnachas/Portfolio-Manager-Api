@@ -55,5 +55,25 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                 return (false, null, exceptionMessage.Message);
             }
         }
+
+        public async Task<(bool IsSuccess, string Message)> CreateNewBusiness(int portfolioId, string name, string description, string sector)
+        {
+            try
+            {
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = $"INSERT INTO Business (portfolioId, name, description, sector, createdOn, updatedOn) VALUES ({portfolioId}, '{name}', '{description}', '{sector}', NOW(), NOW())";
+                    await connection.ExecuteAsync(sqlQuery);
+                    return (true, "Business created successfully");
+                }
+            }
+            catch (Exception exceptionMessage)
+            {
+                logger.LogError(exceptionMessage.Message);
+                return (false, exceptionMessage.Message);
+            }
+        }
     }
 }

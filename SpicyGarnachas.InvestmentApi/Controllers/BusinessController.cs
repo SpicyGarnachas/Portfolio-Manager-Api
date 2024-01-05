@@ -32,5 +32,13 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
             var (IsSuccess, Result, MessageError) = await services.GetBusinessDataByPortfolioId(id);
             return IsSuccess ? Ok(Result) : BadRequest(Result);
         }
+
+        [HttpPost]
+        [Route("CreateNewBusiness/{portfolioId}/{name}/{description}/{sector}")]
+        public async Task<ActionResult<string>> CreateNewBusiness(int portfolioId, string name, string description, string sector)
+        {
+            var (IsSuccess, Message) = await services.CreateNewBusiness(portfolioId, name, description, sector);
+            return IsSuccess ? Ok(Message) : BadRequest(Message);
+        }
     }
 }

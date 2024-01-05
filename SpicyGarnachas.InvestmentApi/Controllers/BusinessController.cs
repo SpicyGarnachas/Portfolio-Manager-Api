@@ -8,7 +8,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowOrigin")] 
+    [EnableCors("AllowOrigin")]
     public class BusinessController : ControllerBase
     {
         private readonly IBusinessService services;
@@ -25,6 +25,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
             var (IsSuccess, Result, MessageError) = await services.GetBusinessData();
             return IsSuccess ? Ok(Result) : BadRequest(Result);
         }
+
         [HttpGet]
         [Route("GetBusinessDataByPortfolioId/{id}")]
         public async Task<ActionResult<IEnumerable<BusinessModel>?>> GetBusinessDataByPortfolioId(int id)
@@ -38,6 +39,14 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         public async Task<ActionResult<string>> CreateNewBusiness(int portfolioId, string name, string description, string sector)
         {
             var (IsSuccess, Message) = await services.CreateNewBusiness(portfolioId, name, description, sector);
+            return IsSuccess ? Ok(Message) : BadRequest(Message);
+        }
+
+        [HttpDelete]
+        [Route("DeleteBusiness/{id}/{portfolioId}")]
+        public async Task<ActionResult<string>> DeleteBusiness(int id, int portfolioId)
+        {
+            var (IsSuccess, Message) = await services.DeleteBusiness(id, portfolioId);
             return IsSuccess ? Ok(Message) : BadRequest(Message);
         }
     }

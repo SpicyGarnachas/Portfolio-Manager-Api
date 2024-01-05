@@ -74,6 +74,20 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 return (false, ex.Message);
             }
         }
+
+        public async Task<(bool IsSuccess, string Message)> DeleteBusiness(int id, int portfolioId)
+        {
+            try
+            {
+                await Task.Delay(0);
+                return (IsSuccess: true, Message: "Business deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
         
     }
 }

@@ -29,10 +29,10 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                     return business.AsList().Count > 0 ? (IsSuccess: true, business, string.Empty) : (IsSuccess: false, null, "No data");
                 }
             }
-            catch (Exception exceptionMessage)
+            catch (Exception ex)
             {
-                logger.LogError(exceptionMessage.Message);
-                return (false, null, exceptionMessage.Message);
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
             }
         }
 
@@ -49,10 +49,10 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                     return business.AsList().Count > 0 ? (IsSuccess: true, business, string.Empty) : (IsSuccess: false, null, "No data");
                 }
             }
-            catch (Exception exceptionMessage)
+            catch (Exception ex)
             {
-                logger.LogError(exceptionMessage.Message);
-                return (false, null, exceptionMessage.Message);
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
             }
         }
 
@@ -69,10 +69,29 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                     return (true, "Business created successfully");
                 }
             }
-            catch (Exception exceptionMessage)
+            catch (Exception ex)
             {
-                logger.LogError(exceptionMessage.Message);
-                return (false, exceptionMessage.Message);
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
+        public async Task<(bool IsSuccess, string Message)> DeleteBusiness(int id, int portfolioId)
+        {
+            try
+            {
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = $"DELETE FROM Business WHERE id = {id} AND portfolioId = {portfolioId}";
+                    await connection.ExecuteAsync(sqlQuery);
+                    return (true, "Business deleted successfully");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
             }
         }
     }

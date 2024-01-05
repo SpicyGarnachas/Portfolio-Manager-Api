@@ -22,7 +22,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         public async Task<ActionResult<IEnumerable<PortfolioModel>?>> GetPortfolioData()
         {
             var (IsSuccess, Result, MessageError) = await services.GetPortfolioData();
-            return IsSuccess ? Ok(Result) : BadRequest(Result);
+            return IsSuccess ? Ok(Result) : BadRequest(MessageError);
         }
 
         [HttpGet]
@@ -30,7 +30,35 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         public async Task<ActionResult<IEnumerable<PortfolioModel>?>> GetPortfolioByUserId(int id)
         {
             var (IsSuccess, Result, MessageError) = await services.GetPortfolioById(id);
-            return IsSuccess ? Ok(Result) : BadRequest(Result);
+            return IsSuccess ? Ok(Result) : BadRequest(MessageError);
         }
+
+        [HttpPost]
+        [Route("CreateNewPortfolio/{userId}/{name}/{description}/{createdOn}/{updatedOn}")]
+        public async Task<ActionResult<string>> CreateNewPortfolio(int userId, string name, string description, DateTime createdOn, DateTime updatedOn)
+        {
+            var (IsSuccess, Message) = await services.CreateNewPortfolio(userId, name, description, createdOn, updatedOn);
+            return IsSuccess ? Ok(Message) : BadRequest(Message);
+        }
+
+        [HttpPut]
+        [Route("ModifyPorfolio/{userId}/{name}/{description}/{createdOn}/{updatedOn}")]
+        public async Task<ActionResult<string>> ModifyPorfolio(int userId, string name, string description, DateTime createdOn, DateTime updatedOn)
+        {
+            //var (IsSuccess, Message) = await services.ModifyPorfolio(userId, name, description, createdOn, updatedOn);
+            //return IsSuccess ? Ok(Message) : BadRequest(Message);
+            return Ok("CreateNewPortfolio");
+        }
+
+        [HttpDelete]
+        [Route("DeletePortfolio/{id}")]
+        public async Task<ActionResult<string>> DeletePortfolio(int id)
+        {
+            //var (IsSuccess, Message) = await services.DeletePortfolio(userId, name, description, createdOn, updatedOn);
+            //return IsSuccess ? Ok(Message) : BadRequest(Message);
+            return Ok("CreateNewPortfolio");
+        }
+
+
     }
 }

@@ -42,6 +42,20 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 return (false, null, ex.Message);
             }
         }
+
+        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(int userId, string name, string description, DateTime createdOn, DateTime updatedOn)
+        {
+            try
+            {
+                var (IsSuccess, Message) = await repository.CreateNewPortfolio(userId, name, description, createdOn, updatedOn);
+                await Task.Delay(0);
+                return IsSuccess.Equals(true) ? (true, string.Empty) : (false, Message);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
     }
 }
-

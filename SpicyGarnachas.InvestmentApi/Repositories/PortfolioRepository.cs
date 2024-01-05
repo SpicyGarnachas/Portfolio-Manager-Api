@@ -55,5 +55,26 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                 return (false, null, ex.Message);
             }
         }
+
+        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(int userId, string name, string description, DateTime createdOn, DateTime updatedOn)
+        {
+            try
+            {
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = $"INSERT INTO Portfolio (username, password, createdOn, updatedOn) VALUES ({userId}, '{name}', '{description}', '{createdOn}', '{updatedOn}');";
+                    await connection.ExecuteAsync(sqlQuery);
+                    
+                    return (IsSuccess: true, Message: "Portfolio created successfully");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
     }
 }

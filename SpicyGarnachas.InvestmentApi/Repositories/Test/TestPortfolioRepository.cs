@@ -60,5 +60,28 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 return (false, null, ex.Message);
             }
         }
+
+        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(int userId, string name, string description, DateTime createdOn, DateTime updatedOn)
+        {
+            try
+            {
+                PortfolioModel portfolio = new PortfolioModel()
+                {
+                    id = 1,
+                    name = "My fruit store TEST",
+                    description = "Retail fruit store",
+                    createdOn = DateTime.Now,
+                    updatedOn = DateTime.Now,
+                    userId = 1
+                };
+                await Task.Delay(0);
+                return (IsSuccess: true, Message: "Portfolio created successfully");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
     }
 }

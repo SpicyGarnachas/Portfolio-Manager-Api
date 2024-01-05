@@ -57,5 +57,52 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 return (false, ex.Message);
             }
         }
+
+        public async Task<(bool IsSuccess, string Message)> ModifyPorfolio(int id, int userId, string name, string description)
+        {
+            try
+            {
+                bool isFirst = true;
+                string sqlQuery = string.Empty;
+                List<string> updateFields = new List<string>();
+
+                if(userId != 0)
+                {
+                    updateFields.Add($"userId = {userId}");
+                }
+                if(name != null || description != string.Empty)
+                {
+                    updateFields.Add($"name = '{name}'");
+                }
+                if(description != null || description != string.Empty)
+                {
+                    updateFields.Add($"description = '{description}'");
+                }
+
+                updateFields.Add($"updatedOn = '{DateTime.Now}'");
+
+                foreach (string field in updateFields)
+                {
+                    if (isFirst)
+                    {
+                        sqlQuery += $"UPDATE Portfolio SET {field}";
+                        isFirst = false;
+                    }
+                    else
+                    {
+                        sqlQuery += $", {field}";
+                    }
+                }
+
+                var (IsSuccess, Message) = await repository.ModifyPorfolio(id, sqlQuery);
+                await Task.Delay(0);
+                return IsSuccess.Equals(true) ? (true, string.Empty) : (false, Message);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 return (false, null, exceptionMessage.Message);
             }
         }
-        
+
         public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string MessageError)> GetPortfolioById(int id)
         {
             try
@@ -65,17 +65,22 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
         {
             try
             {
-                PortfolioModel portfolio = new PortfolioModel()
-                {
-                    id = 1,
-                    name = "My fruit store TEST",
-                    description = "Retail fruit store",
-                    createdOn = DateTime.Now,
-                    updatedOn = DateTime.Now,
-                    userId = 1
-                };
                 await Task.Delay(0);
                 return (IsSuccess: true, Message: "Portfolio created successfully");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
+
+        public async Task<(bool IsSuccess, string Message)> ModifyPorfolio(int id, string sqlQuery)
+        {
+            try
+            {
+                await Task.Delay(0);
+                return (IsSuccess: true, Message: "Portfolio updated successfully");
             }
             catch (Exception ex)
             {

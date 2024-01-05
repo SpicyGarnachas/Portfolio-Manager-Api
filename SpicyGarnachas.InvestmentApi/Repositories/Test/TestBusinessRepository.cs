@@ -30,10 +30,10 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 await Task.Delay(0);
                 return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
             }
-            catch (Exception exceptionMessage)
+            catch (Exception ex)
             {
-                logger.LogError(exceptionMessage.Message);
-                return (false, null, exceptionMessage.Message);
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
             }
         }
 
@@ -54,10 +54,10 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 await Task.Delay(0);
                 return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
             }
-            catch (Exception exceptionMessage)
+            catch (Exception ex)
             {
-                logger.LogError(exceptionMessage.Message);
-                return (false, null, exceptionMessage.Message);
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
             }
         }
 

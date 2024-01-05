@@ -24,7 +24,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
             var (IsSuccess, Result, Message) = await services.GetTransactionsData();
             return IsSuccess ? Ok(Result) : BadRequest(Message);
         }
-        
+
         [HttpGet]
         [Route("GetTransactionsDataByPortfolioId/{id}")]
         public async Task<ActionResult<IEnumerable<TransactionModel>?>> GetTransactionsDataByPortfolioId(int id)
@@ -34,4 +34,3 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
     }
 }
-

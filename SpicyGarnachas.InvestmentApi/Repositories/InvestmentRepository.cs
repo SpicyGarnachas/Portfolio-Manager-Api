@@ -15,7 +15,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             this.logger = logger;
             _configuration = configuration;
         }
-        
+
         public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentData()
         {
             try
@@ -55,7 +55,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             }
         }
 
-        public async Task <(bool IsSuccess, string Message)> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity)
+        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             }
         }
 
-        public async Task <(bool IsSuccess, string Message)> ModifyInvestment(int id, string sqlQuery)
+        public async Task<(bool IsSuccess, string Message)> ModifyInvestment(int id, string sqlQuery)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             }
         }
 
-        public async Task <(bool IsSuccess, string Message)> DeleteInvestment(int id, int portfolioId)
+        public async Task<(bool IsSuccess, string Message)> DeleteInvestment(int id, int portfolioId)
         {
             try
             {

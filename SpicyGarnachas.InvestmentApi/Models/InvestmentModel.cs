@@ -10,7 +10,7 @@
         public string? type { get; set; }
         public string? sector { get; set; }
         public int? risk { get; set; }
-        public int? liquidity  { get; set; }
+        public int? liquidity { get; set; }
         public DateTime? createdOn { get; set; }
         public DateTime? updatedOn { get; set; }
     }

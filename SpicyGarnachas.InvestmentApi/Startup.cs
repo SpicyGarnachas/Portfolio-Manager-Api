@@ -71,4 +71,3 @@ namespace SpicyGarnachas.InvestmentApi
         }
     }
 }
-

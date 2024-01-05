@@ -65,36 +65,36 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 string sqlQuery = string.Empty;
                 List<string> updateFields = new List<string>();
 
-                if(name == null || name == string.Empty && description == null || description == string.Empty && platform == null || platform == string.Empty && type == null || type == string.Empty && sector == null || sector != string.Empty)
+                if (name == null || name == string.Empty && description == null || description == string.Empty && platform == null || platform == string.Empty && type == null || type == string.Empty && sector == null || sector != string.Empty)
                 {
                     return (false, "You must provide at least one field to update");
                 }
 
-                if(name != null || name != string.Empty)
+                if (name != null || name != string.Empty)
                 {
                     updateFields.Add($"name = '{name}'");
                 }
 
-                if(description != null || description != string.Empty)
+                if (description != null || description != string.Empty)
                 {
                     updateFields.Add($"description = '{description}'");
                 }
 
-                if(platform != null || platform != string.Empty)
+                if (platform != null || platform != string.Empty)
                 {
                     updateFields.Add($"platform = '{platform}'");
                 }
 
-                if(type != null || type != string.Empty)
+                if (type != null || type != string.Empty)
                 {
                     updateFields.Add($"type = '{type}'");
                 }
 
-                if(sector != null || sector != string.Empty)
+                if (sector != null || sector != string.Empty)
                 {
                     updateFields.Add($"sector = '{sector}'");
                 }
-                
+
                 updateFields.Add($"risk = {risk}");
                 updateFields.Add($"liquidity = {liquidity}");
                 updateFields.Add($"updatedOn = NOW()");
@@ -123,7 +123,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 return (false, ex.Message);
             }
         }
-        
+
         public async Task<(bool IsSuccess, string Message)> DeleteInvestment(int id, int portfolioId)
         {
             try

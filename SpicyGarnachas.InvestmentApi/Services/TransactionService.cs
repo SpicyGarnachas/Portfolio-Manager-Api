@@ -3,7 +3,7 @@ using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
 {
-    public class TransactionService: ITransactionService
+    public class TransactionService : ITransactionService
     {
         private readonly ITransactionRepository repository;
         private readonly ILogger<TransactionService> logger;
@@ -27,7 +27,7 @@ namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
                 return (false, null, ex.Message);
             }
         }
-        
+
         public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string Message)> GetTransactionsDataByPortfolioId(int id)
         {
             try

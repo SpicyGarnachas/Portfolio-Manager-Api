@@ -102,6 +102,6 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 return (false, ex.Message);
             }
         }
-        
+
     }
 }

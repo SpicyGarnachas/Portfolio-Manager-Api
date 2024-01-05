@@ -54,6 +54,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 return (false, null, ex.Message);
             }
         }
+        
         public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string Message)> GetTransactionsDataByPortfolioId(int id)
         {
             try

@@ -76,7 +76,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             }
         }
 
-        public async Task <(bool IsSuccess, string Message)> ModifyBusiness(int id, string sqlQuery)
+        public async Task<(bool IsSuccess, string Message)> ModifyBusiness(int id, string sqlQuery)
         {
             try
             {

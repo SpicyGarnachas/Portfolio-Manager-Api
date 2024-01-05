@@ -46,7 +46,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
         {
             try
             {
-                var (IsSuccess, Message) = await repository.CreateNewBusiness(portfolioId,  name,  description,  sector);
+                var (IsSuccess, Message) = await repository.CreateNewBusiness(portfolioId, name, description, sector);
                 return IsSuccess ? (true, string.Empty) : (false, Message);
             }
             catch (Exception ex)
@@ -64,19 +64,19 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 string sqlQuery = string.Empty;
                 List<string> updateFields = new List<string>();
 
-                if(name == null || name == string.Empty && description == null || description == string.Empty && sector == null || sector == string.Empty)
+                if (name == null || name == string.Empty && description == null || description == string.Empty && sector == null || sector == string.Empty)
                 {
                     return (false, "You must provide at least one field to update");
                 }
-                if(name != null || name != string.Empty)
+                if (name != null || name != string.Empty)
                 {
                     updateFields.Add($"name = '{name}'");
                 }
-                if(description != null || description != string.Empty)
+                if (description != null || description != string.Empty)
                 {
                     updateFields.Add($"description = '{description}'");
                 }
-                if(sector != null || sector != string.Empty)
+                if (sector != null || sector != string.Empty)
                 {
                     updateFields.Add($"sector = '{sector}'");
                 }
@@ -123,4 +123,3 @@ namespace SpicyGarnachas.InvestmentApi.Services
         }
     }
 }
-

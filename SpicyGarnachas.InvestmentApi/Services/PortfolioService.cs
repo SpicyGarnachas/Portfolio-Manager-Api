@@ -63,11 +63,6 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 string sqlQuery = string.Empty;
                 List<string> updateFields = new List<string>();
 
-                if (name == null || name == string.Empty && description == null || description == string.Empty)
-                {
-                    return (false, "You must provide at least one field to update");
-                }
-
                 if (name != null || name != string.Empty)
                 {
                     updateFields.Add($"name = '{name}'");

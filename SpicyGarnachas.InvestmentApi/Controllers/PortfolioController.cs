@@ -7,7 +7,6 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowOrigin")] 
     public class PortfolioController : ControllerBase
     {
         private readonly IPortfolioService services;

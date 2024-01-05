@@ -19,14 +19,6 @@ namespace SpicyGarnachas.InvestmentApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowOrigin",
-                    builder => builder.AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod());
-            });
-            
             services.AddSingleton<IConfiguration>(Configuration);
             if (webHostEnvironment.IsDevelopment())
             {

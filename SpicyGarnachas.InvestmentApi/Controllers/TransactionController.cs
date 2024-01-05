@@ -8,7 +8,6 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowOrigin")] 
     public class TransactionController : ControllerBase
     {
         private readonly ITransactionService services;

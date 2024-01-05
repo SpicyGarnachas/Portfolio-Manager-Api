@@ -22,16 +22,16 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         [Route("GetInvestmentData")]
         public async Task<ActionResult<IEnumerable<InvestmentModel>?>> GetInvestmentData()
         {
-            var (IsSuccess, Result, MessageError) = await services.GetInvestmentData();
-            return IsSuccess ? Ok(Result) : BadRequest(Result);
+            var (IsSuccess, Result, Message) = await services.GetInvestmentData();
+            return IsSuccess ? Ok(Result) : BadRequest(Message);
         }
         
         [HttpGet]
         [Route("GetInvestmentDataByPortfolioId/{id}")]
         public async Task<ActionResult<IEnumerable<InvestmentModel>?>> GetInvestmentDataByPortfolioId(int id)
         {
-            var (IsSuccess, Result, MessageError) = await services.GetInvestmentDataByPortfolioId(id);
-            return IsSuccess ? Ok(Result) : BadRequest(Result);
+            var (IsSuccess, Result, Message) = await services.GetInvestmentDataByPortfolioId(id);
+            return IsSuccess ? Ok(Result) : BadRequest(Message);
         }
     }
 }

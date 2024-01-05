@@ -13,7 +13,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             this.logger = logger;
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string MessageError)> GetInvestmentData()
+        public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentData()
         {
             try
             {
@@ -33,14 +33,14 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 await Task.Delay(0);
                 return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
             }
-            catch (Exception exceptionMessage)
+            catch (Exception ex)
             {
-                logger.LogError(exceptionMessage.Message);
-                return (false, null, exceptionMessage.Message);
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string MessageError)> GetInvestmentDataByPortfolioId(int id)
+        public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentDataByPortfolioId(int id)
         {
             try
             {
@@ -60,10 +60,10 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 await Task.Delay(0);
                 return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
             }
-            catch (Exception exceptionMessage)
+            catch (Exception ex)
             {
-                logger.LogError(exceptionMessage.Message);
-                return (false, null, exceptionMessage.Message);
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
             }
         }
     }

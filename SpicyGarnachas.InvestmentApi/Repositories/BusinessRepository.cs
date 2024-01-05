@@ -16,7 +16,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             _configuration = configuration;
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<BusinessModel>?, string MessageError)> GetBusinessData()
+        public async Task<(bool IsSuccess, IEnumerable<BusinessModel>?, string Message)> GetBusinessData()
         {
             try
             {
@@ -36,7 +36,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<BusinessModel>?, string MessageError)> GetBusinessDataByPortfolioId(int id)
+        public async Task<(bool IsSuccess, IEnumerable<BusinessModel>?, string Message)> GetBusinessDataByPortfolioId(int id)
         {
             try
             {

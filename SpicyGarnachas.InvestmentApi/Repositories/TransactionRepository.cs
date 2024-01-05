@@ -15,7 +15,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             this.logger = logger;
             _configuration = configuration;
         }
-        public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string MessageError)> GetTransactionsData()
+        public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string Message)> GetTransactionsData()
         {
             try
             {
@@ -28,13 +28,13 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                     return transactions.AsList().Count > 0 ? (IsSuccess: true, transactions, string.Empty) : (IsSuccess: false, null, "No data");
                 }
             }
-            catch (Exception exceptionMessage)
+            catch (Exception ex)
             {
-                logger.LogError(exceptionMessage.Message);
-                return (false, null, exceptionMessage.Message);
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
             }
         }
-        public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string MessageError)> GetTransactionsDataByPortfolioId(int id)
+        public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string Message)> GetTransactionsDataByPortfolioId(int id)
         {
             try
             {
@@ -47,10 +47,10 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                     return transactions.AsList().Count > 0 ? (IsSuccess: true, transactions, string.Empty) : (IsSuccess: false, null, "No data");
                 }
             }
-            catch (Exception exceptionMessage)
+            catch (Exception ex)
             {
-                logger.LogError(exceptionMessage.Message);
-                return (false, null, exceptionMessage.Message);
+                logger.LogError(ex.Message);
+                return (false, null, ex.Message);
             }
         }
     }

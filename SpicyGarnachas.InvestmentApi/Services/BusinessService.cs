@@ -87,7 +87,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 {
                     if (isFirst)
                     {
-                        sqlQuery += $"UPDATE Portfolio SET {field}";
+                        sqlQuery += $"UPDATE Business SET {field}";
                         isFirst = false;
                     }
                     else

@@ -13,6 +13,7 @@ namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
             this.repository = repository;
             this.logger = logger;
         }
+
         public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string MessageError)> GetTransactionsData()
         {
             try
@@ -27,6 +28,7 @@ namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
                 return (false, null, ex.Message);
             }
         }
+        
         public async Task<(bool IsSuccess, IEnumerable<TransactionModel>?, string MessageError)> GetTransactionsDataByPortfolioId(int id)
         {
             try

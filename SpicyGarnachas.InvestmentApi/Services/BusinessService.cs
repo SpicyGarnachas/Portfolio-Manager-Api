@@ -56,7 +56,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> ModifyBusiness(int id, int portfolioId, string name, string description)
+        public async Task<(bool IsSuccess, string Message)> ModifyBusiness(int id, int portfolioId, string name, string description, string sector)
         {
             try
             {
@@ -64,14 +64,21 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 string sqlQuery = string.Empty;
                 List<string> updateFields = new List<string>();
 
-                if(name == null || name == string.Empty && description == null || description == string.Empty)
+                if(name == null || name == string.Empty && description == null || description == string.Empty && sector == null || sector == string.Empty)
                 {
                     return (false, "You must provide at least one field to update");
                 }
                 if(name != null || name != string.Empty)
                 {
                     updateFields.Add($"name = '{name}'");
-                    isFirst = false;
+                }
+                if(description != null || description != string.Empty)
+                {
+                    updateFields.Add($"description = '{description}'");
+                }
+                if(sector != null || sector != string.Empty)
+                {
+                    updateFields.Add($"sector = '{sector}'");
                 }
 
                 updateFields.Add($"updatedOn = NOW()");

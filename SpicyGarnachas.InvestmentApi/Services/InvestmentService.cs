@@ -65,7 +65,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 string sqlQuery = string.Empty;
                 List<string> updateFields = new List<string>();
 
-                if(name == null || name == string.Empty && description == null || description == string.Empty && platform == null || platform == string.Empty && type == null || type == string.Empty && sector == null || sector != string.Empty && risk != 0 && liquidity != 0)
+                if(name == null || name == string.Empty && description == null || description == string.Empty && platform == null || platform == string.Empty && type == null || type == string.Empty && sector == null || sector != string.Empty)
                 {
                     return (false, "You must provide at least one field to update");
                 }
@@ -94,17 +94,9 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 {
                     updateFields.Add($"sector = '{sector}'");
                 }
-
-                if(risk != 0)
-                {
-                    updateFields.Add($"risk = {risk}");
-                }
-
-                if(liquidity != 0)
-                {
-                    updateFields.Add($"liquidity = {liquidity}");
-                }
-
+                
+                updateFields.Add($"risk = {risk}");
+                updateFields.Add($"liquidity = {liquidity}");
                 updateFields.Add($"updatedOn = NOW()");
 
                 foreach (string field in updateFields)

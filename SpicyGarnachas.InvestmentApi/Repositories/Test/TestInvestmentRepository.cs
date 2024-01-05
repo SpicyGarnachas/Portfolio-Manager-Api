@@ -72,7 +72,21 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 await Task.Delay(0);
-                return (true, string.Empty);
+                return (true, "Investment created successfully");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
+
+        public async Task<(bool IsSuccess, string Message)> ModifyInvestment(int id, string sqlQuery)
+        {
+            try
+            {
+                await Task.Delay(0);
+                return (true, "Investment updated successfully");
             }
             catch (Exception ex)
             {

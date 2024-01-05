@@ -35,10 +35,18 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpPost]
-        [Route("CreateNewInvestment/{userId}/{name}/{description}")]
+        [Route("CreateNewInvestment/{portfolioId}/{name}/{description}/{platform}/{type}/{sector}/{risk}/{liquidity}")]
         public async Task<ActionResult<string>> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity)
         {
             var (IsSuccess, Message) = await services.CreateNewInvestment(portfolioId, name, description, platform, type, sector, risk, liquidity);
+            return IsSuccess ? Ok(Message) : BadRequest(Message);
+        }
+
+        [HttpPut]
+        [Route("ModifyInvestment/{id}/{portfolioId}")]
+        public async Task<ActionResult<string>> ModifyInvestment(int id, int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity)
+        {
+            var (IsSuccess, Message) = await services.ModifyInvestment(id, portfolioId, name, description, platform, type, sector, risk, liquidity);
             return IsSuccess ? Ok(Message) : BadRequest(Message);
         }
     }

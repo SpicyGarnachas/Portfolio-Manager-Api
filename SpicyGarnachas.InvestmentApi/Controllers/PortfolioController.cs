@@ -29,7 +29,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         [Route("GetPortfolioByUserId/{id}")]
         public async Task<ActionResult<IEnumerable<PortfolioModel>?>> GetPortfolioByUserId(int id)
         {
-            var (IsSuccess, Result, Message) = await services.GetPortfolioById(id);
+            var (IsSuccess, Result, Message) = await services.GetPortfolioByUserId(id);
             return IsSuccess ? Ok(Result) : BadRequest(Message);
         }
 

@@ -27,11 +27,11 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 return (false, null, ex.Message);
             }
         }
-        public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string Message)> GetPortfolioById(int id)
+        public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string Message)> GetPortfolioByUserId(int id)
         {
             try
             {
-                var (IsSuccess, Result, MessageError) = await repository.GetPortfolioById(id);
+                var (IsSuccess, Result, MessageError) = await repository.GetPortfolioByUserId(id);
                 return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
             }
             catch (Exception ex)
@@ -92,6 +92,8 @@ namespace SpicyGarnachas.InvestmentApi.Services
                         sqlQuery += $", {field}";
                     }
                 }
+
+                sqlQuery += $" WHERE id = {id} AND userId = {userId}";
 
                 var (IsSuccess, Message) = await repository.ModifyPorfolio(id, sqlQuery);
                 return IsSuccess.Equals(true) ? (true, string.Empty) : (false, Message);

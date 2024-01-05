@@ -43,10 +43,10 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpPut]
-        [Route("ModifyBusiness/{id}/{userId}")]
-        public async Task<ActionResult<string>> ModifyBusiness(int id, int userId, string name, string description)
+        [Route("ModifyBusiness/{id}/{portfolioId}")]
+        public async Task<ActionResult<string>> ModifyBusiness(int id, int portfolioId, string name, string description)
         {
-            var (IsSuccess, Message) = await services.ModifyBusiness(id,userId, name, description);
+            var (IsSuccess, Message) = await services.ModifyBusiness(id, portfolioId, name, description);
             return IsSuccess ? Ok(Message) : BadRequest(Message);
         }
 

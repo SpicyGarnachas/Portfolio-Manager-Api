@@ -19,8 +19,8 @@ namespace SpicyGarnachas.InvestmentApi.Services
         {
             try
             {
-                var (IsSuccess, Result, MessageError) = await repository.GetInvestmentData();
-                return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
+                var (IsSuccess, Result, Message) = await repository.GetInvestmentData();
+                return IsSuccess ? (true, Result, string.Empty) : (false, null, Message);
             }
             catch (Exception ex)
             {
@@ -33,8 +33,8 @@ namespace SpicyGarnachas.InvestmentApi.Services
         {
             try
             {
-                var (IsSuccess, Result, MessageError) = await repository.GetInvestmentDataByPortfolioId(id);
-                return IsSuccess ? (true, Result, string.Empty) : (false, null, MessageError);
+                var (IsSuccess, Result, Message) = await repository.GetInvestmentDataByPortfolioId(id);
+                return IsSuccess ? (true, Result, string.Empty) : (false, null, Message);
             }
             catch (Exception ex)
             {

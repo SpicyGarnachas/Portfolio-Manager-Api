@@ -37,7 +37,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string Message)> GetPortfolioById(int id)
+        public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string Message)> GetPortfolioByUserId(int id)
         {
             try
             {

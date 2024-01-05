@@ -56,11 +56,42 @@ namespace SpicyGarnachas.InvestmentApi.Services
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> ModifyBusiness(int id, int userId, string name, string description)
+        public async Task<(bool IsSuccess, string Message)> ModifyBusiness(int id, int portfolioId, string name, string description)
         {
             try
             {
-                var (IsSuccess, Message) = await repository.ModifyBusiness(id, userId, name, description);
+                bool isFirst = true;
+                string sqlQuery = string.Empty;
+                List<string> updateFields = new List<string>();
+
+                if(name == null || name == string.Empty && description == null || description == string.Empty)
+                {
+                    return (false, "You must provide at least one field to update");
+                }
+                if(name != null || name != string.Empty)
+                {
+                    updateFields.Add($"name = '{name}'");
+                    isFirst = false;
+                }
+
+                updateFields.Add($"updatedOn = 'NOW()'");
+
+                foreach (string field in updateFields)
+                {
+                    if (isFirst)
+                    {
+                        sqlQuery += $"UPDATE Portfolio SET {field}";
+                        isFirst = false;
+                    }
+                    else
+                    {
+                        sqlQuery += $", {field}";
+                    }
+                }
+
+                sqlQuery += $" WHERE id = {id} AND portfolioId = {portfolioId}";
+
+                var (IsSuccess, Message) = await repository.ModifyBusiness(id, sqlQuery);
                 return IsSuccess ? (true, string.Empty) : (false, Message);
             }
             catch (Exception ex)

@@ -76,7 +76,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             }
         }
 
-        public async Task <(bool IsSuccess, string Message)> ModifyBusiness(int id, int userId, string name, string description)
+        public async Task <(bool IsSuccess, string Message)> ModifyBusiness(int id, string sqlQuery)
         {
             try
             {
@@ -84,7 +84,6 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sqlQuery = $"UPDATE Business SET name = '{name}', description = '{description}', updatedOn = NOW() WHERE id = {id} AND userId = {userId}";
                     await connection.ExecuteAsync(sqlQuery);
                     return (true, "Business modified successfully");
                 }

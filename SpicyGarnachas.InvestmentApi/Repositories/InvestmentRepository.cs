@@ -15,7 +15,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             this.logger = logger;
             _configuration = configuration;
         }
-
+        
         public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentData()
         {
             try
@@ -52,6 +52,26 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             {
                 logger.LogError(ex.Message);
                 return (false, null, ex.Message);
+            }
+        }
+
+        public async Task <(bool IsSuccess, string Message)> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity)
+        {
+            try
+            {
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = $"INSERT INTO Investment (portfolioId, name, description, platform, type, sector, risk, liquidity, createdOn, updatedOn) VALUES ({portfolioId}, '{name}', '{description}', '{platform}', '{type}', '{sector}', {risk}, {liquidity}, NOW(), NOW())";
+                    await connection.ExecuteAsync(sqlQuery);
+                    return (true, string.Empty);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
             }
         }
     }

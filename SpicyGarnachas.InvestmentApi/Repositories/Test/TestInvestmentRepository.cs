@@ -66,5 +66,19 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 return (false, null, ex.Message);
             }
         }
+
+        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity)
+        {
+            try
+            {
+                await Task.Delay(0);
+                return (true, string.Empty);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
     }
 }

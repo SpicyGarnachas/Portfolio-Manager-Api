@@ -50,12 +50,11 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpDelete]
-        [Route("DeletePortfolio/{id}")]
-        public async Task<ActionResult<string>> DeletePortfolio(int id)
+        [Route("DeletePortfolio/{id}/{userId}")]
+        public async Task<ActionResult<string>> DeletePortfolio(int id, int userId)
         {
-            //var (IsSuccess, Message) = await services.DeletePortfolio(userId, name, description, createdOn, updatedOn);
-            //return IsSuccess ? Ok(Message) : BadRequest(Message);
-            return Ok("CreateNewPortfolio");
+            var (IsSuccess, Message) = await services.DeletePortfolio(id, userId);
+            return IsSuccess ? Ok(Message) : BadRequest(Message);
         }
 
 

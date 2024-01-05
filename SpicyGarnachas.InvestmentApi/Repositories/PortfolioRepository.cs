@@ -95,5 +95,24 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
                 return (false, ex.Message);
             }
         }
+        public async Task<(bool IsSuccess, string Message)> DeletePortfolio(int id, int userId)
+        {
+            try
+            {
+                string? connectionString = _configuration["stringConnection"];
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = $"DELETE FROM Portfolio WHERE Id = {id} AND userId = {userId}";
+                    await connection.ExecuteAsync(sqlQuery);
+                    return (IsSuccess: true, Message: "Portfolio deleted successfully");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return (false, ex.Message);
+            }
+        }
     }
 }

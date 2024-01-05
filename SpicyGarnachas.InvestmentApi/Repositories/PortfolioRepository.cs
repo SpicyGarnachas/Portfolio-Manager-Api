@@ -56,7 +56,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(int userId, string name, string description, DateTime createdOn, DateTime updatedOn)
+        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(int userId, string name, string description)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sqlQuery = $"INSERT INTO Portfolio (username, password, createdOn, updatedOn) VALUES ({userId}, '{name}', '{description}', '{createdOn}', '{updatedOn}');";
+                    string sqlQuery = $"INSERT INTO Portfolio (username, password, createdOn, updatedOn) VALUES ({userId}, '{name}', '{description}', '{DateTime.Now}', '{DateTime.Now}');";
                     await connection.ExecuteAsync(sqlQuery);
 
                     return (IsSuccess: true, Message: "Portfolio created successfully");

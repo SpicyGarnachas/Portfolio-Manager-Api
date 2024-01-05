@@ -43,11 +43,11 @@ namespace SpicyGarnachas.InvestmentApi.Services
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(int userId, string name, string description, DateTime createdOn, DateTime updatedOn)
+        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(int userId, string name, string description)
         {
             try
             {
-                var (IsSuccess, Message) = await repository.CreateNewPortfolio(userId, name, description, createdOn, updatedOn);
+                var (IsSuccess, Message) = await repository.CreateNewPortfolio(userId, name, description);
                 await Task.Delay(0);
                 return IsSuccess.Equals(true) ? (true, string.Empty) : (false, Message);
             }

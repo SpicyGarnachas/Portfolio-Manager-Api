@@ -34,10 +34,10 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpPost]
-        [Route("CreateNewPortfolio/{userId}/{name}/{description}/{createdOn}/{updatedOn}")]
-        public async Task<ActionResult<string>> CreateNewPortfolio(int userId, string name, string description, DateTime createdOn, DateTime updatedOn)
+        [Route("CreateNewPortfolio/{userId}/{name}/{description}")]
+        public async Task<ActionResult<string>> CreateNewPortfolio(int userId, string name, string description)
         {
-            var (IsSuccess, Message) = await services.CreateNewPortfolio(userId, name, description, createdOn, updatedOn);
+            var (IsSuccess, Message) = await services.CreateNewPortfolio(userId, name, description);
             return IsSuccess ? Ok(Message) : BadRequest(Message);
         }
 

@@ -28,7 +28,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 };
                 IEnumerable<PortfolioModel>? result = new List<PortfolioModel>() { portfolio };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
             }
             catch (Exception exceptionMessage)
             {
@@ -52,7 +52,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 };
                 IEnumerable<PortfolioModel>? result = new List<PortfolioModel>() { portfolio };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
             }
             catch (Exception ex)
             {
@@ -66,7 +66,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 await Task.Delay(0);
-                return (IsSuccess: true, Message: "Portfolio created successfully");
+                return (IsSuccess: true, Message: "Portfolio created successfully TEST");
             }
             catch (Exception ex)
             {
@@ -80,7 +80,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 await Task.Delay(0);
-                return (IsSuccess: true, Message: "Portfolio updated successfully");
+                return (IsSuccess: true, Message: "Portfolio updated successfully TEST");
             }
             catch (Exception ex)
             {
@@ -94,7 +94,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 await Task.Delay(0);
-                return (IsSuccess: true, Message: "Portfolio deleted successfully");
+                return (IsSuccess: true, Message: "Portfolio deleted successfully TEST");
             }
             catch (Exception ex)
             {

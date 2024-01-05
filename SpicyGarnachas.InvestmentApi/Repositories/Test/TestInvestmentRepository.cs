@@ -31,7 +31,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 };
                 IEnumerable<InvestmentModel>? result = new List<InvestmentModel>() { investment };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
             }
             catch (Exception ex)
             {
@@ -58,7 +58,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 };
                 IEnumerable<InvestmentModel>? result = new List<InvestmentModel>() { investment };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
             }
             catch (Exception ex)
             {
@@ -72,7 +72,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 await Task.Delay(0);
-                return (true, "Investment created successfully");
+                return (true, "Investment created successfully TEST");
             }
             catch (Exception ex)
             {
@@ -86,7 +86,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 await Task.Delay(0);
-                return (true, "Investment updated successfully");
+                return (true, "Investment updated successfully TEST");
             }
             catch (Exception ex)
             {
@@ -100,7 +100,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 await Task.Delay(0);
-                return (true, "Investment deleted successfully");
+                return (true, "Investment deleted successfully TEST");
             }
             catch (Exception ex)
             {

@@ -28,7 +28,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 await Task.Delay(0);
                 IEnumerable<BusinessModel>? result = new List<BusinessModel>() { business };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 await Task.Delay(0);
                 IEnumerable<BusinessModel>? result = new List<BusinessModel>() { business };
                 await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, string.Empty) : (IsSuccess: false, null, "No data");
+                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "No data");
             }
             catch (Exception ex)
             {
@@ -66,7 +66,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 await Task.Delay(0);
-                return (IsSuccess: true, Message: "Business created successfully");
+                return (IsSuccess: true, Message: "Business created successfully TEST");
             }
             catch (Exception ex)
             {
@@ -80,7 +80,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 await Task.Delay(0);
-                return (IsSuccess: true, Message: "Business modified successfully");
+                return (IsSuccess: true, Message: "Business modified successfully TEST");
             }
             catch (Exception ex)
             {
@@ -94,7 +94,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             try
             {
                 await Task.Delay(0);
-                return (IsSuccess: true, Message: "Business deleted successfully");
+                return (IsSuccess: true, Message: "Business deleted successfully TEST");
             }
             catch (Exception ex)
             {

@@ -34,7 +34,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpPost]
-        [Route("CreateNewBusiness/portfolioId={portfolioId}&{name}=name&{description}=description&{sector}=sector")]
+        [Route("CreateNewBusiness/portfolioId={portfolioId}&name={name}&description={description}&sector={sector}")]
         public async Task<ActionResult<string>> CreateNewBusiness(int portfolioId, string name, string description, string sector)
         {
             var (IsSuccess, Message) = await services.CreateNewBusiness(portfolioId, name, description, sector);

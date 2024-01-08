@@ -11,5 +11,6 @@
         public DateTime? createdOn { get; set; }
         public DateTime? updatedOn { get; set; }
         public DateTime? inactiveDate { get; set; }
+        public byte[]? image { get; set; }
     }
 }

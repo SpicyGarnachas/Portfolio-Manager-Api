@@ -43,11 +43,11 @@ namespace SpicyGarnachas.InvestmentApi.Services
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity)
+        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity, byte[] image, string currency)
         {
             try
             {
-                var (IsSuccess, Message) = await repository.CreateNewInvestment(portfolioId, name, description, platform, type, sector, risk, liquidity);
+                var (IsSuccess, Message) = await repository.CreateNewInvestment(portfolioId, name, description, platform, type, sector, risk, liquidity, image, currency);
                 return IsSuccess ? (true, Message) : (false, Message);
             }
             catch (Exception ex)
@@ -57,7 +57,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> ModifyInvestment(int id, int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity)
+        public async Task<(bool IsSuccess, string Message)> ModifyInvestment(int id, int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity, byte[] image, string currency)
         {
             try
             {
@@ -88,6 +88,14 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 if (sector != null || sector != string.Empty)
                 {
                     updateFields.Add($"sector = '{sector}'");
+                }
+                if(image != null)
+                {
+                    updateFields.Add($"image = '{image}'");
+                }
+                if(currency != null || currency != string.Empty)
+                {
+                    updateFields.Add($"currency = '{currency}'");
                 }
 
                 updateFields.Add($"risk = {risk}");

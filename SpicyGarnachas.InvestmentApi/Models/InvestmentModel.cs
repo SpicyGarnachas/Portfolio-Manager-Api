@@ -3,6 +3,7 @@
     public class InvestmentModel
     {
         public int id { get; set; }
+        public string? source { get; set; }
         public int? portfolioId { get; set; }
         public string? name { get; set; }
         public string? description { get; set; }

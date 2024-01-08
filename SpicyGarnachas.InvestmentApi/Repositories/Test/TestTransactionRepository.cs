@@ -20,27 +20,36 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 TransactionModel firstTransaction = new TransactionModel()
                 {
                     id = 1,
-                    investmentId = 1,
+                    referenceId = 1,
                     type = "Returns TEST",
+                    description = "TEST",
+                    category = "TEST",
                     value = 565,
+                    image = null,
                     createdOn = DateTime.Now,
                     updatedOn = DateTime.Now
                 };
                 TransactionModel secondTransaction = new TransactionModel()
                 {
                     id = 2,
-                    investmentId = 2,
+                    referenceId = 1,
                     type = "Returns TEST",
+                    description = "TEST",
+                    category = "TEST",
                     value = 565,
+                    image = null,
                     createdOn = DateTime.Now,
                     updatedOn = DateTime.Now
                 };
                 TransactionModel thirdTransaction = new TransactionModel()
                 {
                     id = 3,
-                    investmentId = 3,
+                    referenceId = 1,
                     type = "Returns TEST",
+                    description = "TEST",
+                    category = "TEST",
                     value = 565,
+                    image = null,
                     createdOn = DateTime.Now,
                     updatedOn = DateTime.Now
                 };

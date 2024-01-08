@@ -34,18 +34,18 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpPost]
-        [Route("CreateNewInvestment/portfolioId={portfolioId}&name={name}&description={description}&platform={platform}&type={type}&sector={sector}&risk={risk}&liquidity={liquidity}")]
-        public async Task<ActionResult<string>> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity)
+        [Route("CreateNewInvestment/portfolioId={portfolioId}&name={name}&description={description}&platform={platform}&type={type}&sector={sector}&risk={risk}&liquidity={liquidity}&image={image}&currency={currency}")]
+        public async Task<ActionResult<string>> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity, byte[] image, string currency)
         {
-            var (IsSuccess, Message) = await services.CreateNewInvestment(portfolioId, name, description, platform, type, sector, risk, liquidity);
+            var (IsSuccess, Message) = await services.CreateNewInvestment(portfolioId, name, description, platform, type, sector, risk, liquidity, image, currency);
             return IsSuccess ? Ok(Message) : BadRequest(Message);
         }
 
         [HttpPut]
         [Route("ModifyInvestment/id={id}&portfolioId={portfolioId}")]
-        public async Task<ActionResult<string>> ModifyInvestment(int id, int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity)
+        public async Task<ActionResult<string>> ModifyInvestment(int id, int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity, byte[] image, string currency)
         {
-            var (IsSuccess, Message) = await services.ModifyInvestment(id, portfolioId, name, description, platform, type, sector, risk, liquidity);
+            var (IsSuccess, Message) = await services.ModifyInvestment(id, portfolioId, name, description, platform, type, sector, risk, liquidity, image, currency);
             return IsSuccess ? Ok(Message) : BadRequest(Message);
         }
 

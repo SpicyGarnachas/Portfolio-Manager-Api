@@ -5,6 +5,7 @@ namespace SpicyGarnachas.InvestmentApi.Models
         int Id { get; set; }
         string? UserName { get; set; }
         string? Password { get; set; }
+        public byte[]? image { get; set; }
         
     }
 }

@@ -10,6 +10,6 @@
         public bool? isActive { get; set; }
         public DateTime? createdOn { get; set; }
         public DateTime? updatedOn { get; set; }
-        public DateTime? inactiveOn { get; set; }
+        public DateTime? inactiveDate { get; set; }
     }
 }

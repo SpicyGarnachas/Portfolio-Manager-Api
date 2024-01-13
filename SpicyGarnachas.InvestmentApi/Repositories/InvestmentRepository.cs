@@ -55,7 +55,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity, byte[] image, string currency)
+        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(InvestmentModel invest)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sqlQuery = $"INSERT INTO Investment (portfolioId, name, description, platform, type, sector, risk, liquidity, createdOn, updatedOn) VALUES ({portfolioId}, '{name}', '{description}', '{platform}', '{type}', '{sector}', {risk}, {liquidity}, NOW(), NOW())";
+                    string sqlQuery = $"INSERT INTO Investment (portfolioId, name, description, platform, type, sector, risk, liquidity, createdOn, updatedOn) VALUES ({invest.portfolioId}, '{invest.name}', '{invest.description}', '{invest.platform}', '{invest.type}', '{invest.sector}', {invest.risk}, {invest.liquidity}, NOW(), NOW())";
                     await connection.ExecuteAsync(sqlQuery);
                     return (true, "Investment created successfully");
                 }

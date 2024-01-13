@@ -67,7 +67,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity, byte[] image, string currency)
+        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(InvestmentModel invest)
         {
             try
             {

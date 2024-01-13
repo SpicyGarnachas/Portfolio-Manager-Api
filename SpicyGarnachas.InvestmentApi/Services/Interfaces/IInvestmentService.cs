@@ -6,8 +6,8 @@ namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
     {
         Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentData();
         Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentDataByPortfolioId(int id);
-        Task<(bool IsSuccess, string Message)> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity, byte[] image, string currency);
-        Task<(bool IsSuccess, string Message)> ModifyInvestment(int id, int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity, byte[] image, string currency);
+        Task<(bool IsSuccess, string Message)> CreateNewInvestment(InvestmentModel invest);
+        Task<(bool IsSuccess, string Message)> ModifyInvestment(InvestmentModel investment);
         Task<(bool IsSuccess, string Message)> DeleteInvestment(int id, int portfolioId);
     }
 }

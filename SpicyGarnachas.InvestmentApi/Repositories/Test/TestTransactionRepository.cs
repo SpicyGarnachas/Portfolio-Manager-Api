@@ -71,7 +71,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                 TransactionModel firstTransaction = new TransactionModel()
                 {
                     id = 1,
-                    investmentId = 1,
+                    referenceId = 1,
                     type = "Returns TEST",
                     value = 565,
                     createdOn = DateTime.Now,

@@ -43,11 +43,11 @@ namespace SpicyGarnachas.InvestmentApi.Services
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity, byte[] image, string currency)
+        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(InvestmentModel invest)
         {
             try
             {
-                var (IsSuccess, Message) = await repository.CreateNewInvestment(portfolioId, name, description, platform, type, sector, risk, liquidity, image, currency);
+                var (IsSuccess, Message) = await repository.CreateNewInvestment(invest);
                 return IsSuccess ? (true, Message) : (false, Message);
             }
             catch (Exception ex)
@@ -57,7 +57,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> ModifyInvestment(int id, int portfolioId, string name, string description, string platform, string type, string sector, int risk, int liquidity, byte[] image, string currency)
+        public async Task<(bool IsSuccess, string Message)> ModifyInvestment(InvestmentModel investment)
         {
             try
             {
@@ -65,41 +65,41 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 string sqlQuery = string.Empty;
                 List<string> updateFields = new List<string>();
 
-                if (name != null || name != string.Empty)
+                if (investment.name != null || investment.name != string.Empty)
                 {
-                    updateFields.Add($"name = '{name}'");
+                    updateFields.Add($"name = '{investment.name}'");
                 }
 
-                if (description != null || description != string.Empty)
+                if (investment.description != null || investment.description != string.Empty)
                 {
-                    updateFields.Add($"description = '{description}'");
+                    updateFields.Add($"description = '{investment.description}'");
                 }
 
-                if (platform != null || platform != string.Empty)
+                if (investment.platform != null || investment.platform != string.Empty)
                 {
-                    updateFields.Add($"platform = '{platform}'");
+                    updateFields.Add($"platform = '{investment.platform}'");
                 }
 
-                if (type != null || type != string.Empty)
+                if (investment.type != null || investment.type != string.Empty)
                 {
-                    updateFields.Add($"type = '{type}'");
+                    updateFields.Add($"type = '{investment.type}'");
                 }
 
-                if (sector != null || sector != string.Empty)
+                if (investment.sector != null || investment.sector != string.Empty)
                 {
-                    updateFields.Add($"sector = '{sector}'");
+                    updateFields.Add($"sector = '{investment.sector}'");
                 }
-                if(image != null)
+                if(investment.image != null)
                 {
-                    updateFields.Add($"image = '{image}'");
+                    updateFields.Add($"image = '{investment.image}'");
                 }
-                if(currency != null || currency != string.Empty)
+                if(investment.currency != null || investment.currency != string.Empty)
                 {
-                    updateFields.Add($"currency = '{currency}'");
+                    updateFields.Add($"currency = '{investment.currency}'");
                 }
 
-                updateFields.Add($"risk = {risk}");
-                updateFields.Add($"liquidity = {liquidity}");
+                updateFields.Add($"risk = {investment.risk}");
+                updateFields.Add($"liquidity = {investment.liquidity}");
                 updateFields.Add($"updatedOn = NOW()");
 
                 foreach (string field in updateFields)
@@ -115,9 +115,9 @@ namespace SpicyGarnachas.InvestmentApi.Services
                     }
                 }
 
-                sqlQuery += $" WHERE id = {id} AND portfolioId = {portfolioId}";
+                sqlQuery += $" WHERE id = {investment.id} AND portfolioId = {investment.portfolioId}";
 
-                var (IsSuccess, Message) = await repository.ModifyInvestment(id, sqlQuery);
+                var (IsSuccess, Message) = await repository.ModifyInvestment(investment.id, sqlQuery);
                 return IsSuccess.Equals(true) ? (true, Message) : (false, Message);
             }
             catch (Exception ex)

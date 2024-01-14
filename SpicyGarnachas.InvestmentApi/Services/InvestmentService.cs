@@ -70,6 +70,11 @@ namespace SpicyGarnachas.InvestmentApi.Services
                     updateFields.Add($"name = '{investment.name}'");
                 }
 
+                if (investment.clasification != null || investment.clasification != string.Empty)
+                {
+                    updateFields.Add($"clasification = '{investment.clasification}'");
+                }
+
                 if (investment.description != null || investment.description != string.Empty)
                 {
                     updateFields.Add($"description = '{investment.description}'");
@@ -89,13 +94,9 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 {
                     updateFields.Add($"sector = '{investment.sector}'");
                 }
-                if(investment.image != null)
+                if(investment.currencyCode != null || investment.currencyCode != string.Empty)
                 {
-                    updateFields.Add($"image = '{investment.image}'");
-                }
-                if(investment.currency != null || investment.currency != string.Empty)
-                {
-                    updateFields.Add($"currency = '{investment.currency}'");
+                    updateFields.Add($"currencyCode = '{investment.currencyCode}'");
                 }
 
                 updateFields.Add($"risk = {investment.risk}");

@@ -63,7 +63,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sqlQuery = $"INSERT INTO Investment (portfolioId, name, description, platform, type, sector, risk, liquidity, createdOn, updatedOn) VALUES ({invest.portfolioId}, '{invest.name}', '{invest.description}', '{invest.platform}', '{invest.type}', '{invest.sector}', {invest.risk}, {invest.liquidity}, NOW(), NOW())";
+                    string sqlQuery = $"INSERT INTO Investment (portfolioId, name, clasification, description, platform, type, sector, risk, liquidity, currencyCode, createdOn, updatedOn) VALUES ({invest.portfolioId}, '{invest.name}','{invest.clasification}',  '{invest.description}', '{invest.platform}', '{invest.type}', '{invest.sector}', {invest.risk}, {invest.liquidity},'{invest.currencyCode}', NOW(), NOW())";
                     await connection.ExecuteAsync(sqlQuery);
                     return (true, "Investment created successfully");
                 }

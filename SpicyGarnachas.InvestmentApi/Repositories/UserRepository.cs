@@ -43,7 +43,7 @@ public class UserRepository
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sqlQuery = "SELECT * FROM Users WHERE id = ";
+                string sqlQuery = $"INSERT INTO users (userName, password, salt, createdOn, updatedOn) VALUES ({user.userName}, {user.password}, {user.salt}, @lastname, @email)";
                 var users = await connection.QueryAsync<UserModel>(sqlQuery);
                 return users.AsList().Count > 0 ? (IsSuccess: true, users, string.Empty) : (IsSuccess: false, null, "Database without Users");
             }

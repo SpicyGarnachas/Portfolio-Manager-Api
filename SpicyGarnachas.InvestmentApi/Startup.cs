@@ -28,8 +28,8 @@ public class Startup
             services.AddScoped<IInvestmentRepository, TestInvestmentRepository>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<ITransactionRepository, TestTransactionRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, TestUserRepository>();
         }
         else
         {
@@ -39,8 +39,8 @@ public class Startup
             services.AddScoped<IInvestmentRepository, InvestmentRepository>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
         services.AddControllers();
         services.AddSwaggerGen(c =>

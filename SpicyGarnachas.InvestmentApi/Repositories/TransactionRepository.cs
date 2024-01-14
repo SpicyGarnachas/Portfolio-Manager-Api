@@ -23,7 +23,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sqlQuery = "SELECT * FROM Transactions";
+                    string sqlQuery = "SELECT * FROM Transaction";
                     var transactions = await connection.QueryAsync<TransactionModel>(sqlQuery);
                     return transactions.AsList().Count > 0 ? (IsSuccess: true, transactions, string.Empty) : (IsSuccess: false, null, "Database without Transactions");
                 }

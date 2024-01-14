@@ -9,6 +9,5 @@ namespace SpicyGarnachas.InvestmentApi.Models
         public byte[]? image { get; set; }
         public DateTime? createdOn { get; set; }
         public DateTime? updatedOn { get; set; }
-
     }
 }

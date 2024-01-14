@@ -25,7 +25,6 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                     description = "TEST",
                     category = "TEST",
                     value = 565,
-                    image = null,
                     createdOn = DateTime.Now,
                     updatedOn = DateTime.Now
                 };
@@ -37,7 +36,6 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                     description = "TEST",
                     category = "TEST",
                     value = 565,
-                    image = null,
                     createdOn = DateTime.Now,
                     updatedOn = DateTime.Now
                 };
@@ -49,7 +47,6 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
                     description = "TEST",
                     category = "TEST",
                     value = 565,
-                    image = null,
                     createdOn = DateTime.Now,
                     updatedOn = DateTime.Now
                 };

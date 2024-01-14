@@ -23,10 +23,10 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
             //return IsSuccess ? Ok(Result) : BadRequest(Message);
             await Task.Delay(1000);
             return new LoginModel() {
-                IsSuccess = true,
-                Message = "Login successful",
-                UserId = 1,
-                Token = "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"};
+                isSuccess = true,
+                message = "Login successful",
+                userId = 1,
+                token = "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"};
         }
     }
 }

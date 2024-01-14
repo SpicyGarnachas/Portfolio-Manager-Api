@@ -28,6 +28,8 @@ namespace SpicyGarnachas.InvestmentApi
                 services.AddScoped<IInvestmentRepository, TestInvestmentRepository>();
                 services.AddScoped<ITransactionService, TransactionService>();
                 services.AddScoped<ITransactionRepository, TestTransactionRepository>();
+                services.AddScoped<IUserRepository, UserRepository>();
+                services.AddScoped<IUserService, UserService>();
             }
             else
             {
@@ -37,6 +39,8 @@ namespace SpicyGarnachas.InvestmentApi
                 services.AddScoped<IInvestmentRepository, InvestmentRepository>();
                 services.AddScoped<ITransactionService, TransactionService>();
                 services.AddScoped<ITransactionRepository, TransactionRepository>();
+                services.AddScoped<IUserRepository, UserRepository>();
+                services.AddScoped<IUserService, UserService>();
             }
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -15,7 +15,7 @@ public class UserRepository
         _configuration = configuration;
     }
 
-    public async Task<(bool IsSuccess, IEnumerable<UserModel>?, string Message)> LoginByUserAndPassword(string username, string password)
+    public async Task<(bool IsSuccess, IEnumerable<UserModel>?, string Message)> GetUserData(string username)
     {
         try
         {
@@ -23,7 +23,7 @@ public class UserRepository
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sqlQuery = "SELECT * FROM Users WHERE id = ";
+                string sqlQuery = $"SELECT * FROM Users WHERE username = {username}";
                 var users = await connection.QueryAsync<UserModel>(sqlQuery);
                 return users.AsList().Count > 0 ? (IsSuccess: true, users, string.Empty) : (IsSuccess: false, null, "Database without Users");
             }
@@ -35,8 +35,7 @@ public class UserRepository
         }
     }
 
-
-    public async Task<(bool IsSuccess, IEnumerable<UserModel>?, string Message)> Register(UserModel user)
+    public async Task<(bool IsSuccess, IEnumerable<UserModel>?, string Message)> RegisterUser(UserModel user)
     {
         try
         {

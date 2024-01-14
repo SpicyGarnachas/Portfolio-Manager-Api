@@ -25,7 +25,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetPortfolioByUserId/id={id}")]
+        [Route("GetPortfolioByUserId")]
         public async Task<ActionResult<IEnumerable<PortfolioModel>?>> GetPortfolioByUserId(int id)
         {
             var (IsSuccess, Result, Message) = await services.GetPortfolioByUserId(id);
@@ -33,7 +33,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpPost]
-        [Route("CreateNewPortfolio/userId={userId}&name={name}&description={description}")]
+        [Route("CreateNewPortfolio")]
         public async Task<ActionResult<string>> CreateNewPortfolio(int userId, string name, string description)
         {
             var (IsSuccess, Message) = await services.CreateNewPortfolio(userId, name, description);
@@ -41,7 +41,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpPut]
-        [Route("ModifyPorfolio/id={id}&userId={userId}")]
+        [Route("ModifyPorfolio")]
         public async Task<ActionResult<string>> ModifyPorfolio(int id, int userId, string name, string description)
         {
             var (IsSuccess, Message) = await services.ModifyPorfolio(id, userId, name, description);
@@ -49,7 +49,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpDelete]
-        [Route("DeletePortfolio/id={id}&userId={userId}")]
+        [Route("DeletePortfolio")]
         public async Task<ActionResult<string>> DeletePortfolio(int id, int userId)
         {
             var (IsSuccess, Message) = await services.DeletePortfolio(id, userId);

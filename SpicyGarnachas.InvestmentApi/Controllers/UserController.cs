@@ -4,20 +4,19 @@ using SpicyGarnachas.InvestmentApi.Services.Interfaces;
 
 namespace SpicyGarnachas.InvestmentApi.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly ITransactionService services;
 
-        public LoginController(ITransactionService services)
+        public UserController(ITransactionService services)
         {
             this.services = services;
         }
 
         [HttpGet]
-        [Route("LoginByUserAndPassword/username={username}&password={password}")]
+        [Route("LoginByUserAndPassword")]
         public async Task<ActionResult<LoginModel>?> LoginByUserAndPassword(string username, string password)
         {
             //var (IsSuccess, Result, Message) = await services.LoginByUserAndPassword(string username, string password);

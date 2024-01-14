@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Cors;
 
 namespace SpicyGarnachas.InvestmentApi.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class TransactionController : ControllerBase
@@ -26,7 +25,7 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetTransactionsDataByPortfolioId/id={id}")]
+        [Route("GetTransactionsDataByPortfolioId")]
         public async Task<ActionResult<IEnumerable<TransactionModel>?>> GetTransactionsDataByPortfolioId(int id)
         {
             var (IsSuccess, Result, Message) = await services.GetTransactionsDataByPortfolioId(id);

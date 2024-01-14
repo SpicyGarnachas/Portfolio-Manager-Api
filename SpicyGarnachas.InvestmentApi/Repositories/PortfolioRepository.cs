@@ -3,117 +3,116 @@ using MySql.Data.MySqlClient;
 using SpicyGarnachas.InvestmentApi.Models;
 using Dapper;
 
-namespace SpicyGarnachas.InvestmentApi.Repositories
+namespace SpicyGarnachas.InvestmentApi.Repositories;
+
+public class PortfolioRepository : IPortfolioRepository
 {
-    public class PortfolioRepository : IPortfolioRepository
+    private readonly ILogger<PortfolioRepository> logger;
+    private readonly IConfiguration _configuration;
+
+    public PortfolioRepository(ILogger<PortfolioRepository> logger, IConfiguration configuration)
     {
-        private readonly ILogger<PortfolioRepository> logger;
-        private readonly IConfiguration _configuration;
+        this.logger = logger;
+        _configuration = configuration;
+    }
 
-        public PortfolioRepository(ILogger<PortfolioRepository> logger, IConfiguration configuration)
+    public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string Message)> GetPortfolioData()
+    {
+        try
         {
-            this.logger = logger;
-            _configuration = configuration;
-        }
+            string? connectionString = _configuration["stringConnection"];
 
-        public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string Message)> GetPortfolioData()
-        {
-            try
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string? connectionString = _configuration["stringConnection"];
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    string sqlQuery = "SELECT * FROM Portfolio";
-                    var portfolio = await connection.QueryAsync<PortfolioModel>(sqlQuery);
-                    return portfolio.AsList().Count > 0 ? (IsSuccess: true, portfolio, string.Empty) : (IsSuccess: false, null, "Database without portfolios");
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                return (false, null, ex.Message);
+                string sqlQuery = "SELECT * FROM Portfolio";
+                var portfolio = await connection.QueryAsync<PortfolioModel>(sqlQuery);
+                return portfolio.AsList().Count > 0 ? (IsSuccess: true, portfolio, string.Empty) : (IsSuccess: false, null, "Database without portfolios");
             }
         }
-
-        public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string Message)> GetPortfolioByUserId(int id)
+        catch (Exception ex)
         {
-            try
-            {
-                string? connectionString = _configuration["stringConnection"];
+            logger.LogError(ex.Message);
+            return (false, null, ex.Message);
+        }
+    }
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    string sqlQuery = $"SELECT * FROM Portfolio WHERE userId = {id}";
-                    var portfolio = await connection.QueryAsync<PortfolioModel>(sqlQuery);
-                    return portfolio.AsList().Count > 0 ? (IsSuccess: true, portfolio, string.Empty) : (IsSuccess: false, null, "User has no portfolios");
-                }
-            }
-            catch (Exception ex)
+    public async Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string Message)> GetPortfolioByUserId(int id)
+    {
+        try
+        {
+            string? connectionString = _configuration["stringConnection"];
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                logger.LogError(ex.Message);
-                return (false, null, ex.Message);
+                string sqlQuery = $"SELECT * FROM Portfolio WHERE userId = {id}";
+                var portfolio = await connection.QueryAsync<PortfolioModel>(sqlQuery);
+                return portfolio.AsList().Count > 0 ? (IsSuccess: true, portfolio, string.Empty) : (IsSuccess: false, null, "User has no portfolios");
             }
         }
-
-        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(PortfolioModel portfolio)
+        catch (Exception ex)
         {
-            try
-            {
-                string? connectionString = _configuration["stringConnection"];
+            logger.LogError(ex.Message);
+            return (false, null, ex.Message);
+        }
+    }
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    string sqlQuery = $"INSERT INTO Portfolio (userId, name, description, currencyCode, createdOn, updatedOn) VALUES ({portfolio.userId},'{portfolio.name}', '{portfolio.description}', '{portfolio.currencyCode}',NOW(), NOW());";
-                    await connection.ExecuteAsync(sqlQuery);
+    public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(PortfolioModel portfolio)
+    {
+        try
+        {
+            string? connectionString = _configuration["stringConnection"];
 
-                    return (IsSuccess: true, Message: "Portfolio created successfully");
-                }
-            }
-            catch (Exception ex)
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                logger.LogError(ex.Message);
-                return (false, ex.Message);
+                string sqlQuery = $"INSERT INTO Portfolio (userId, name, description, currencyCode, createdOn, updatedOn) VALUES ({portfolio.userId},'{portfolio.name}', '{portfolio.description}', '{portfolio.currencyCode}',NOW(), NOW());";
+                await connection.ExecuteAsync(sqlQuery);
+
+                return (IsSuccess: true, Message: "Portfolio created successfully");
             }
         }
-
-        public async Task<(bool IsSuccess, string Message)> ModifyPorfolio(int id, string sqlQuery)
+        catch (Exception ex)
         {
-            try
-            {
-                string? connectionString = _configuration["stringConnection"];
+            logger.LogError(ex.Message);
+            return (false, ex.Message);
+        }
+    }
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    await connection.ExecuteAsync(sqlQuery);
-                    return (IsSuccess: true, Message: "Portfolio updated successfully");
-                }
-            }
-            catch (Exception ex)
+    public async Task<(bool IsSuccess, string Message)> ModifyPorfolio(int id, string sqlQuery)
+    {
+        try
+        {
+            string? connectionString = _configuration["stringConnection"];
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                logger.LogError(ex.Message);
-                return (false, ex.Message);
+                await connection.ExecuteAsync(sqlQuery);
+                return (IsSuccess: true, Message: "Portfolio updated successfully");
             }
         }
-
-        public async Task<(bool IsSuccess, string Message)> DeletePortfolio(int id, int userId)
+        catch (Exception ex)
         {
-            try
-            {
-                string? connectionString = _configuration["stringConnection"];
+            logger.LogError(ex.Message);
+            return (false, ex.Message);
+        }
+    }
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    string sqlQuery = $"DELETE FROM Portfolio WHERE Id = {id} AND userId = {userId}";
-                    await connection.ExecuteAsync(sqlQuery);
-                    return (IsSuccess: true, Message: "Portfolio deleted successfully");
-                }
-            }
-            catch (Exception ex)
+    public async Task<(bool IsSuccess, string Message)> DeletePortfolio(int id, int userId)
+    {
+        try
+        {
+            string? connectionString = _configuration["stringConnection"];
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                logger.LogError(ex.Message);
-                return (false, ex.Message);
+                string sqlQuery = $"DELETE FROM Portfolio WHERE Id = {id} AND userId = {userId}";
+                await connection.ExecuteAsync(sqlQuery);
+                return (IsSuccess: true, Message: "Portfolio deleted successfully");
             }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex.Message);
+            return (false, ex.Message);
         }
     }
 }

@@ -3,115 +3,114 @@ using MySql.Data.MySqlClient;
 using SpicyGarnachas.InvestmentApi.Models;
 using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 
-namespace SpicyGarnachas.InvestmentApi.Repositories
+namespace SpicyGarnachas.InvestmentApi.Repositories;
+
+public class InvestmentRepository : IInvestmentRepository
 {
-    public class InvestmentRepository : IInvestmentRepository
+    private readonly ILogger<InvestmentRepository> logger;
+    private readonly IConfiguration _configuration;
+
+    public InvestmentRepository(ILogger<InvestmentRepository> logger, IConfiguration configuration)
     {
-        private readonly ILogger<InvestmentRepository> logger;
-        private readonly IConfiguration _configuration;
+        this.logger = logger;
+        _configuration = configuration;
+    }
 
-        public InvestmentRepository(ILogger<InvestmentRepository> logger, IConfiguration configuration)
+    public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentData()
+    {
+        try
         {
-            this.logger = logger;
-            _configuration = configuration;
-        }
+            string? connectionString = _configuration["stringConnection"];
 
-        public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentData()
-        {
-            try
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string? connectionString = _configuration["stringConnection"];
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    string sqlQuery = "SELECT * FROM Investment";
-                    var investment = await connection.QueryAsync<InvestmentModel>(sqlQuery);
-                    return investment.AsList().Count > 0 ? (IsSuccess: true, investment, string.Empty) : (IsSuccess: false, null, "Database without investments");
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                return (false, null, ex.Message);
+                string sqlQuery = "SELECT * FROM Investment";
+                var investment = await connection.QueryAsync<InvestmentModel>(sqlQuery);
+                return investment.AsList().Count > 0 ? (IsSuccess: true, investment, string.Empty) : (IsSuccess: false, null, "Database without investments");
             }
         }
-        public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentDataByPortfolioId(int id)
+        catch (Exception ex)
         {
-            try
-            {
-                string? connectionString = _configuration["stringConnection"];
+            logger.LogError(ex.Message);
+            return (false, null, ex.Message);
+        }
+    }
+    public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentDataByPortfolioId(int id)
+    {
+        try
+        {
+            string? connectionString = _configuration["stringConnection"];
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    string sqlQuery = $"SELECT * FROM Investment where portfolioId = {id}";
-                    var investment = await connection.QueryAsync<InvestmentModel>(sqlQuery);
-                    return investment.AsList().Count > 0 ? (IsSuccess: true, investment, string.Empty) : (IsSuccess: false, null, "User has no investments");
-                }
-            }
-            catch (Exception ex)
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                logger.LogError(ex.Message);
-                return (false, null, ex.Message);
+                string sqlQuery = $"SELECT * FROM Investment where portfolioId = {id}";
+                var investment = await connection.QueryAsync<InvestmentModel>(sqlQuery);
+                return investment.AsList().Count > 0 ? (IsSuccess: true, investment, string.Empty) : (IsSuccess: false, null, "User has no investments");
             }
         }
-
-        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(InvestmentModel invest)
+        catch (Exception ex)
         {
-            try
-            {
-                string? connectionString = _configuration["stringConnection"];
+            logger.LogError(ex.Message);
+            return (false, null, ex.Message);
+        }
+    }
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    string sqlQuery = $"INSERT INTO Investment (portfolioId, name, clasification, description, platform, type, sector, risk, liquidity, currencyCode, createdOn, updatedOn) VALUES ({invest.portfolioId}, '{invest.name}','{invest.clasification}',  '{invest.description}', '{invest.platform}', '{invest.type}', '{invest.sector}', {invest.risk}, {invest.liquidity},'{invest.currencyCode}', NOW(), NOW())";
-                    await connection.ExecuteAsync(sqlQuery);
-                    return (true, "Investment created successfully");
-                }
-            }
-            catch (Exception ex)
+    public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(InvestmentModel invest)
+    {
+        try
+        {
+            string? connectionString = _configuration["stringConnection"];
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                logger.LogError(ex.Message);
-                return (false, ex.Message);
+                string sqlQuery = $"INSERT INTO Investment (portfolioId, name, clasification, description, platform, type, sector, risk, liquidity, currencyCode, createdOn, updatedOn) VALUES ({invest.portfolioId}, '{invest.name}','{invest.clasification}',  '{invest.description}', '{invest.platform}', '{invest.type}', '{invest.sector}', {invest.risk}, {invest.liquidity},'{invest.currencyCode}', NOW(), NOW())";
+                await connection.ExecuteAsync(sqlQuery);
+                return (true, "Investment created successfully");
             }
         }
-
-        public async Task<(bool IsSuccess, string Message)> ModifyInvestment(int id, string sqlQuery)
+        catch (Exception ex)
         {
-            try
-            {
-                string? connectionString = _configuration["stringConnection"];
+            logger.LogError(ex.Message);
+            return (false, ex.Message);
+        }
+    }
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    await connection.ExecuteAsync(sqlQuery);
-                    return (true, "Investment modified successfully");
-                }
-            }
-            catch (Exception ex)
+    public async Task<(bool IsSuccess, string Message)> ModifyInvestment(int id, string sqlQuery)
+    {
+        try
+        {
+            string? connectionString = _configuration["stringConnection"];
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                logger.LogError(ex.Message);
-                return (false, ex.Message);
+                await connection.ExecuteAsync(sqlQuery);
+                return (true, "Investment modified successfully");
             }
         }
-
-        public async Task<(bool IsSuccess, string Message)> DeleteInvestment(int id, int portfolioId)
+        catch (Exception ex)
         {
-            try
-            {
-                string? connectionString = _configuration["stringConnection"];
+            logger.LogError(ex.Message);
+            return (false, ex.Message);
+        }
+    }
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    string sqlQuery = $"DELETE FROM Investment WHERE id = {id} AND portfolioId = {portfolioId}";
-                    await connection.ExecuteAsync(sqlQuery);
-                    return (true, "Investment deleted successfully");
-                }
-            }
-            catch (Exception ex)
+    public async Task<(bool IsSuccess, string Message)> DeleteInvestment(int id, int portfolioId)
+    {
+        try
+        {
+            string? connectionString = _configuration["stringConnection"];
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                logger.LogError(ex.Message);
-                return (false, ex.Message);
+                string sqlQuery = $"DELETE FROM Investment WHERE id = {id} AND portfolioId = {portfolioId}";
+                await connection.ExecuteAsync(sqlQuery);
+                return (true, "Investment deleted successfully");
             }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex.Message);
+            return (false, ex.Message);
         }
     }
 }

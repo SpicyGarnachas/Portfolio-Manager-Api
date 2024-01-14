@@ -2,111 +2,110 @@
 using SpicyGarnachas.InvestmentApi.Models;
 using SpicyGarnachas.InvestmentApi.Repositories.Interfaces;
 
-namespace SpicyGarnachas.InvestmentApi.Repositories.Test
+namespace SpicyGarnachas.InvestmentApi.Repositories.Test;
+
+public class TestInvestmentRepository : IInvestmentRepository
 {
-    public class TestInvestmentRepository : IInvestmentRepository
+    private readonly ILogger<TestInvestmentRepository> logger;
+
+    public TestInvestmentRepository(ILogger<TestInvestmentRepository> logger)
     {
-        private readonly ILogger<TestInvestmentRepository> logger;
+        this.logger = logger;
+    }
 
-        public TestInvestmentRepository(ILogger<TestInvestmentRepository> logger)
+    public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentData()
+    {
+        try
         {
-            this.logger = logger;
+            InvestmentModel? investment = new InvestmentModel()
+            {
+                id = 1,
+                portfolioId = 1,
+                name = "Bank Account TEST",
+                description = "my default account",
+                platform = "Bank of the world",
+                type = "Bank",
+                sector = "Financials",
+                risk = 1,
+                liquidity = 1
+            };
+            IEnumerable<InvestmentModel>? result = new List<InvestmentModel>() { investment };
+            await Task.Delay(0);
+            return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "Database without investments TEST");
         }
-
-        public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentData()
+        catch (Exception ex)
         {
-            try
-            {
-                InvestmentModel? investment = new InvestmentModel()
-                {
-                    id = 1,
-                    portfolioId = 1,
-                    name = "Bank Account TEST",
-                    description = "my default account",
-                    platform = "Bank of the world",
-                    type = "Bank",
-                    sector = "Financials",
-                    risk = 1,
-                    liquidity = 1
-                };
-                IEnumerable<InvestmentModel>? result = new List<InvestmentModel>() { investment };
-                await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "Database without investments TEST");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                return (false, null, ex.Message);
-            }
+            logger.LogError(ex.Message);
+            return (false, null, ex.Message);
         }
+    }
 
-        public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentDataByPortfolioId(int id)
+    public async Task<(bool IsSuccess, IEnumerable<InvestmentModel>?, string Message)> GetInvestmentDataByPortfolioId(int id)
+    {
+        try
         {
-            try
+            InvestmentModel? investment = new InvestmentModel()
             {
-                InvestmentModel? investment = new InvestmentModel()
-                {
-                    id = 1,
-                    portfolioId = id,
-                    name = "Bank Account TEST",
-                    description = "my default account",
-                    platform = "Bank of the world",
-                    type = "Bank",
-                    sector = "Financials",
-                    risk = 1,
-                    liquidity = 1
-                };
-                IEnumerable<InvestmentModel>? result = new List<InvestmentModel>() { investment };
-                await Task.Delay(0);
-                return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "User has no investments TEST");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                return (false, null, ex.Message);
-            }
+                id = 1,
+                portfolioId = id,
+                name = "Bank Account TEST",
+                description = "my default account",
+                platform = "Bank of the world",
+                type = "Bank",
+                sector = "Financials",
+                risk = 1,
+                liquidity = 1
+            };
+            IEnumerable<InvestmentModel>? result = new List<InvestmentModel>() { investment };
+            await Task.Delay(0);
+            return result.AsList().Count > 0 ? (IsSuccess: true, result, "TEST SUCCESS") : (IsSuccess: false, null, "User has no investments TEST");
         }
-
-        public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(InvestmentModel invest)
+        catch (Exception ex)
         {
-            try
-            {
-                await Task.Delay(0);
-                return (true, "Investment created successfully TEST");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                return (false, ex.Message);
-            }
+            logger.LogError(ex.Message);
+            return (false, null, ex.Message);
         }
+    }
 
-        public async Task<(bool IsSuccess, string Message)> ModifyInvestment(int id, string sqlQuery)
+    public async Task<(bool IsSuccess, string Message)> CreateNewInvestment(InvestmentModel invest)
+    {
+        try
         {
-            try
-            {
-                await Task.Delay(0);
-                return (true, "Investment updated successfully TEST");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                return (false, ex.Message);
-            }
+            await Task.Delay(0);
+            return (true, "Investment created successfully TEST");
         }
-
-        public async Task<(bool IsSuccess, string Message)> DeleteInvestment(int id, int portfolioId)
+        catch (Exception ex)
         {
-            try
-            {
-                await Task.Delay(0);
-                return (true, "Investment deleted successfully TEST");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                return (false, ex.Message);
-            }
+            logger.LogError(ex.Message);
+            return (false, ex.Message);
+        }
+    }
+
+    public async Task<(bool IsSuccess, string Message)> ModifyInvestment(int id, string sqlQuery)
+    {
+        try
+        {
+            await Task.Delay(0);
+            return (true, "Investment updated successfully TEST");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex.Message);
+            return (false, ex.Message);
+        }
+    }
+
+    public async Task<(bool IsSuccess, string Message)> DeleteInvestment(int id, int portfolioId)
+    {
+        try
+        {
+            await Task.Delay(0);
+            return (true, "Investment deleted successfully TEST");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex.Message);
+            return (false, ex.Message);
         }
     }
 }

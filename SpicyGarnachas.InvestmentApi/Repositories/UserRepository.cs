@@ -27,6 +27,10 @@ public class UserRepository : IUserRepository
             {
                 string sqlQuery = $"SELECT * FROM Users WHERE username = '{username}'";
                 var user = await connection.QuerySingleOrDefaultAsync<UserModel>(sqlQuery);
+                if (user == null)
+                {
+                    return (false, null, "The user is not registered");
+                }
                 return (true, user, string.Empty);
             }
         }

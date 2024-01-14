@@ -21,7 +21,7 @@ public class UserService : IUserService
     {
         try
         {
-            var (userExist, userData, salt) = await userRepository.GetUserData(username);
+            var (userExist, userData, message) = await userRepository.GetUserData(username);
 
             if (userExist)
             {
@@ -31,10 +31,7 @@ public class UserService : IUserService
                     return (true, "User Login was succesfull");
                 }
             }
-
-            
-
-            return (false, "User password was incorrect");
+            return (false, string.IsNullOrEmpty(message) ? "User password was incorrect" : message);
         }
         catch (Exception ex)
         {
@@ -42,7 +39,6 @@ public class UserService : IUserService
             return (false, ex.Message);
         }
     }
-
 
     public async Task<(bool IsSuccess, string Message)> Register(UserModel user)
     {

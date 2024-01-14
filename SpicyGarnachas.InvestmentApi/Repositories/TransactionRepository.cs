@@ -42,7 +42,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sqlQuery = $"SELECT * FROM Transactions WHERE investmentId = {id}";
+                    string sqlQuery = $"SELECT * FROM Transaction WHERE portfolioId = {id}";
                     var transactions = await connection.QueryAsync<TransactionModel>(sqlQuery);
                     return transactions.AsList().Count > 0 ? (IsSuccess: true, transactions, string.Empty) : (IsSuccess: false, null, "User has no Transactions in this portfolio");
                 }

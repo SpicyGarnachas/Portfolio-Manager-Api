@@ -61,7 +61,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories.Test
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(int userId, string name, string description)
+        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(PortfolioModel portfolio)
         {
             try
             {

@@ -44,7 +44,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sqlQuery = $"SELECT * FROM Portfolio WHERE Id = {id}";
+                    string sqlQuery = $"SELECT * FROM Portfolio WHERE userId = {id}";
                     var portfolio = await connection.QueryAsync<PortfolioModel>(sqlQuery);
                     return portfolio.AsList().Count > 0 ? (IsSuccess: true, portfolio, string.Empty) : (IsSuccess: false, null, "User has no portfolios");
                 }
@@ -56,7 +56,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(int userId, string name, string description)
+        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(PortfolioModel portfolio)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace SpicyGarnachas.InvestmentApi.Repositories
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sqlQuery = $"INSERT INTO Portfolio (userId, name, description, createdOn, updatedOn) VALUES ({userId}, '{name}', '{description}', NOW(), NOW());";
+                    string sqlQuery = $"INSERT INTO Portfolio (userId, name, description, currencyCode, createdOn, updatedOn) VALUES ({portfolio.userId},'{portfolio.name}', '{portfolio.description}', '{portfolio.currencyCode}',NOW(), NOW());";
                     await connection.ExecuteAsync(sqlQuery);
 
                     return (IsSuccess: true, Message: "Portfolio created successfully");

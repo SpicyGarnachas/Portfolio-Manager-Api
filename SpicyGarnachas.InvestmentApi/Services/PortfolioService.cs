@@ -41,11 +41,11 @@ namespace SpicyGarnachas.InvestmentApi.Services
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(int userId, string name, string description)
+        public async Task<(bool IsSuccess, string Message)> CreateNewPortfolio(PortfolioModel portfolio)
         {
             try
             {
-                var (IsSuccess, Message) = await repository.CreateNewPortfolio(userId, name, description);
+                var (IsSuccess, Message) = await repository.CreateNewPortfolio(portfolio);
                 return IsSuccess.Equals(true) ? (true, string.Empty) : (false, Message);
             }
             catch (Exception ex)
@@ -55,7 +55,7 @@ namespace SpicyGarnachas.InvestmentApi.Services
             }
         }
 
-        public async Task<(bool IsSuccess, string Message)> ModifyPorfolio(int id, int userId, string name, string description)
+        public async Task<(bool IsSuccess, string Message)> ModifyPorfolio(PortfolioModel portfolio)
         {
             try
             {
@@ -63,14 +63,19 @@ namespace SpicyGarnachas.InvestmentApi.Services
                 string sqlQuery = string.Empty;
                 List<string> updateFields = new List<string>();
 
-                if (name != null || name != string.Empty)
+                if (portfolio.name != null || portfolio.name != string.Empty)
                 {
-                    updateFields.Add($"name = '{name}'");
+                    updateFields.Add($"name = '{portfolio.name}'");
                 }
 
-                if (description != null || description != string.Empty)
+                if (portfolio.description != null || portfolio.description != string.Empty)
                 {
-                    updateFields.Add($"description = '{description}'");
+                    updateFields.Add($"description = '{portfolio.description}'");
+                }
+
+                if (portfolio.currencyCode != null || portfolio.currencyCode != string.Empty)
+                {
+                    updateFields.Add($"currencyCode = '{portfolio.currencyCode}'");
                 }
 
                 updateFields.Add($"updatedOn = NOW()");
@@ -88,9 +93,9 @@ namespace SpicyGarnachas.InvestmentApi.Services
                     }
                 }
 
-                sqlQuery += $" WHERE id = {id} AND userId = {userId}";
+                sqlQuery += $" WHERE id = {portfolio.id} AND userId = {portfolio.userId}";
 
-                var (IsSuccess, Message) = await repository.ModifyPorfolio(id, sqlQuery);
+                var (IsSuccess, Message) = await repository.ModifyPorfolio(portfolio.id, sqlQuery);
                 return IsSuccess.Equals(true) ? (true, string.Empty) : (false, Message);
             }
             catch (Exception ex)

@@ -5,8 +5,8 @@ namespace SpicyGarnachas.InvestmentApi.Services.Interfaces
     {
         Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string Message)> GetPortfolioData();
         Task<(bool IsSuccess, IEnumerable<PortfolioModel>?, string Message)> GetPortfolioByUserId(int id);
-        Task<(bool IsSuccess, string Message)> CreateNewPortfolio(int userId, string name, string description);
-        Task<(bool IsSuccess, string Message)> ModifyPorfolio(int id, int userId, string name, string description);
+        Task<(bool IsSuccess, string Message)> CreateNewPortfolio(PortfolioModel portfolio);
+        Task<(bool IsSuccess, string Message)> ModifyPorfolio(PortfolioModel portfolio);
         Task<(bool IsSuccess, string Message)> DeletePortfolio(int id, int userId);
     }
 }

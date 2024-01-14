@@ -34,17 +34,17 @@ namespace SpicyGarnachas.InvestmentApi.Controllers
 
         [HttpPost]
         [Route("CreateNewPortfolio")]
-        public async Task<ActionResult<string>> CreateNewPortfolio(int userId, string name, string description)
+        public async Task<ActionResult<string>> CreateNewPortfolio(PortfolioModel portfolio)
         {
-            var (IsSuccess, Message) = await services.CreateNewPortfolio(userId, name, description);
+            var (IsSuccess, Message) = await services.CreateNewPortfolio(portfolio);
             return IsSuccess ? Ok(Message) : BadRequest(Message);
         }
 
         [HttpPut]
         [Route("ModifyPorfolio")]
-        public async Task<ActionResult<string>> ModifyPorfolio(int id, int userId, string name, string description)
+        public async Task<ActionResult<string>> ModifyPorfolio(PortfolioModel portfolio)
         {
-            var (IsSuccess, Message) = await services.ModifyPorfolio(id, userId, name, description);
+            var (IsSuccess, Message) = await services.ModifyPorfolio(portfolio);
             return IsSuccess ? Ok(Message) : BadRequest(Message);
         }
 
